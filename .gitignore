@@ -1,0 +1,29 @@
+# Environment / secrets
+.env
+.venv/
+venv/
+instance/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.Python
+
+# Flask
+migrations/versions/__pycache__/
+
+# Database
+*.db
+*.sqlite3
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
