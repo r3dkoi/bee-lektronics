@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Shop | Bee-lektronics{% endblock %}
+
+{% block content %}
+    <section class="shop-header">
+        <h1>Our Products</h1>
+        <p>Great technology is judged by how it performs, not how it looks on a shelf...</p>
+    </section>
+
+    <div class="shop-layout">
+        <aside class="category-filter">
+            <h3>Category</h3>
+            <label>
+                <input type="checkbox" name="Category" value="phones"> Phones <span>5</span>
+            </label>
+            <label>
+                <input type="checkbox" name="Category" value="computers"> Computers <span>5</span>
+            </label>
+        </aside>
+
+        <div class="product-grid">
+            <!-- TODO: LOOP THROUGH REAL PRODUCTS ONCE PRODUCTS IS MADE -->
+            <!-- FOR NOW PLACEHOLDER IMAGES -->
+            <div class="product-card">
+            <img src="https://placehold.co/300x300.png" alt="Oppo Reno 91">
+            <h3>Oppo Reno 91 (Flagship)</h3>
+            <p>Wowzers this shit cool as hell</p>
+            <span class="price">$19.00</span>
+            <button>Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+            <img src="https://placehold.co/300x300.png" alt="Oppo Reno 91">
+            <h3>Oppo Reno 91 (Flagship)</h3>
+            <p>Wowzers this shit cool as hell</p>
+            <span class="price">$19.00</span>
+            <button>Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+            <img src="https://placehold.co/300x300.png" alt="Oppo Reno 91">
+            <h3>Oppo Reno 91 (Flagship)</h3>
+            <p>Wowzers this shit cool as hell</p>
+            <span class="price">$19.00</span>
+            <button>Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+            <img src="https://placehold.co/300x300.png" alt="Oppo Reno 91">
+            <h3>Oppo Reno 91 (Flagship)</h3>
+            <p>Wowzers this shit cool as hell</p>
+            <span class="price">$19.00</span>
+            <button>Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+            <img src="https://placehold.co/300x300.png" alt="Oppo Reno 91">
+            <h3>Oppo Reno 91 (Flagship)</h3>
+            <p>Wowzers this shit cool as hell</p>
+            <span class="price">$19.00</span>
+            <form method="POST" action="{{ url_for('cart.add_to_card', product_id=product.id)}}">
+                <button>Add to Cart</button>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    <nav class="pagination"> <!--TEMPORARY-->
+        {% if page > 1 %}
+            <a href="{{ url_for('main.shop', page=page-1) }}">← Previous</a>
+        {% end if %}
+
+        {% for p in range(1, total_pages + 1) %}
+            <a href="{{ url_for('main.shop', page=p) }}" class="{{ 'active' if p == page else ''}}">{{ p }}</a>
+        {% endfor $}
+
+        {% if page < total_pages %}
+            <a href="{{ url_for('main.shop', page=page+1) }}">Next →</a>
+            {% endif %}
+    </nav>
+{% endblock %}
