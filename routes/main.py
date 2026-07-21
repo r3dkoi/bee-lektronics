@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
 # Blueprint groups all the "general site" pages together (not cart/orders/admin).
 # The name 'main' here is what url_for() uses, e.g. url_for('main.home').
@@ -17,7 +17,10 @@ def home():
 def shop():
     # Product listing page.
     # TODO: replace with real query, e.g. Product.query.all()
-    return render_template('shop.html', products=products)
+    page = request.args.get('page', 1, type=int)
+    # TODO: once real products exist, use Flask-SQLAlchemy's built-in pagination
+    total_pages = 2 #Placeholder until real pagination exists ^
+    return render_template('shop.html', products=products, page=page, total_pages=total_pages)
 
 
 @main.route('/product/<int:product_id>')
