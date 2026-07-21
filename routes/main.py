@@ -20,14 +20,14 @@ def shop():
     page = request.args.get('page', 1, type=int)
     # TODO: once real products exist, use Flask-SQLAlchemy's built-in pagination
     total_pages = 2 #Placeholder until real pagination exists ^
-    return render_template('shop.html', products=products, page=page, total_pages=total_pages)
+    return render_template('shop.html', page=page, total_pages=total_pages)
 
 
 @main.route('/product/<int:product_id>')
 def product_detail(product_id):
      #TODO: replace with real lookup, e.g. Product.query.get_or_404(product_id)
      #From product database list
-    return render_template('product_detail.html', product=product)
+    return render_template('product_detail.html')
 
 
 @main.route('/about')
