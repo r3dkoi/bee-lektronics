@@ -85,3 +85,13 @@ CSS, JS, and images served as-is (no build step needed).
 - `js/checkout.js` — checkout form behavior
 - `js/admin.js` — admin page behavior
 - `images/` — product photos, logos, icons
+
+IMAGE REFERENCES
+
+https://openverse.org/image/7e29aa97-c842-48d3-a642-55c3de823815?q=bee+icon&p=5
+
+https://openverse.org/image/1e62d106-4209-4e4c-8629-9e0bffeb3f28?q=honey+comb&p=25
+
+GUIDES USED
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Overflow/Carousels
