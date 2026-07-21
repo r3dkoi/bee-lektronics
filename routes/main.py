@@ -13,21 +13,21 @@ def home():
     return render_template('home.html')
 
 
-# @main.route('/shop')
-# def shop():
-#     # Product listing page.
-#     # TODO: replace with real query, e.g. Product.query.all()
-#     return render_template('shop.html', products=products)
+@main.route('/shop')
+def shop():
+    # Product listing page.
+    # TODO: replace with real query, e.g. Product.query.all()
+    return render_template('shop.html', products=products)
 
 
-# @main.route('/product/<int:product_id>')
-# def product_detail(product_id):
-#      TODO: replace with real lookup, e.g. Product.query.get_or_404(product_id)
-#      From product database list
-#     return render_template('product_detail.html', product=product)
+@main.route('/product/<int:product_id>')
+def product_detail(product_id):
+     #TODO: replace with real lookup, e.g. Product.query.get_or_404(product_id)
+     #From product database list
+    return render_template('product_detail.html', product=product)
 
 
-# @main.route('/about')
-# def about_contact():
-#     # About / Contact info page — static content, no data needed.
-#     return render_template('about_contact.html')
+@main.route('/about')
+def about_contact():
+    # About / Contact info page — static content, no data needed.
+    return render_template('about_contact.html')
