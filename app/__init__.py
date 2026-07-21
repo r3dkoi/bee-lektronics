@@ -12,7 +12,7 @@ def create_app():
     # Load variables from .env into the environment (SECRET_KEY, etc.)
     load_dotenv()
 
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder='../templates', static_folder='../static')
     app.config.from_object(Config)
 
     # session (used by cart.py) requires SECRET_KEY to be set — comes from Config above.
