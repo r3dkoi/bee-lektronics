@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title %}Bee-lektronics</title>
+    <!-- Shared style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <a href="{{ url_for('main.about_contact') }}" class="nav-link">About</a>
+        <a href="{{ url_for('main.shop') }}" class="nav-link">Shop</a>
+
+        <a href="{{ url_for('main.home') }}" class="brand-logo">
+            <img src="{{ url for('static', filename='images/bee_logo.png') }}" alt="Bee-lektronics Logo">
+        </a>
+
+        <a href="{{ url_for('cart.view_cart') }}" class="nav-link">Cart</a>
+    </header>
+    
+    <!-- Every page's unique content is put here -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer class="site-footer">
+        <div class="footer-brand-logo">
+            <img src="{{ url for('static', filename='images/bee_logo.png') }}" alt="Bee-lektronics Logo">
+        </div>
+
+        <nav class="footer-links">
+            <a href="{{ url_for('main.about_contact') }}">About</a>
+            <a href="{{ url_for('main.shop') }}">Shop</a>
+        </nav>
+
+        <div class="footer-bottom">
+            &copy; 2026 Koi & aardlucra. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Shared JS -->
+    <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
