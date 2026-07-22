@@ -197,24 +197,18 @@ title, h1, h2, h3, h4, h5, h6 {
     font-size: 1.1rem;
     color: var(--colour-hover-on);
 }
+.carousel-wrapper {
+    position: relative;
+    margin-top: 1.5rem;
+}
+
 .carousel-featured {
     display: flex;
     gap: 1.5rem;
-    overflow-x: scroll;
+    overflow-x: scroll; /* native scrollbar left visible so it's clear this scrolls, even without JS/buttons */
     scroll-snap-type: x mandatory; /* forces items to lock into place instead of free-scrolling */
     scroll-behavior: smooth;
     padding: 2rem;
-    margin-top: 1.5rem;
-
-    /* Lets scroll buttons/markers below position themselves relative to this container */
-    anchor-name: --featured-carousel;
-    scroll-marker-group: after; /* generates dot navigation from each item's ::scroll-marker */
-
-    scrollbar-width: none;
-}
-
-.carousel-featured::-webkit-scrollbar {
-    display: none; /* Firefox uses scrollbar-width above, this is the Chrome/Safari equivalent */
 }
 
 .carousel-item {
@@ -229,4 +223,55 @@ title, h1, h2, h3, h4, h5, h6 {
     width: 100%;
     height: auto;
     border-radius: 12px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                   Manual carousel controls (buttons + dots)               */
+/*   Plain HTML/JS-driven controls, works in every browser (unlike the       */
+/*   Chromium-only ::scroll-button()/::scroll-marker-group CSS features).    */
+/* -------------------------------------------------------------------------- */
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--colour-tertiary);
+    color: var(--colour-quaternary);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.carousel-prev {
+    left: 0.5rem;
+}
+
+.carousel-next {
+    right: 0.5rem;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.carousel-dots button {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 2px solid var(--colour-tertiary);
+    border-radius: 50%;
+    background-color: var(--colour-quaternary);
+    cursor: pointer;
+}
+
+.carousel-dots button.is-active {
+    background-color: var(--colour-tertiary);
 }
