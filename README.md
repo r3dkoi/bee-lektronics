@@ -43,7 +43,7 @@ Database tables/schema — one file per table group.
 URL endpoints — the glue between `models/` and `templates/`. Each route fetches data and renders a template with it.
 - `main.py` — Home, Shop, Product Detail pages
 - `cart.py` — Cart view + add/remove item endpoints
-- `orders.py` — Checkout + Order Confirmation pages
+- `orders.py` — Checkout page + order submission (redirects to Shop with an "Order Confirmed" message)
 - `admin.py` — Admin login + Sales Summary page
 
 ### `utils/`
@@ -71,7 +71,6 @@ HTML pages (Jinja2), one per site-map page.
 - `shop.html` — Product listing page
 - `product_detail.html` — Single product page
 - `checkout.html` — Cart review + shipping/payment info + order submission
-- `order_confirmation.html` — "Order complete" page
 - `admin/login.html` — Admin login form
 - `admin/sales_summary.html` — Admin-only sales data page
 
