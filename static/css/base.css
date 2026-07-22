@@ -1,0 +1,18 @@
+/* Reset to defaults */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Palette */
+:root {
+    --colour-primary: #2c2d32;
+    --colour-primary-gradient: #3d4357;
+    --colour-secondary: #D4A418;
+    --colour-tertiary: #310000;
+    --colour-p: #FFEECA;
+    --colour-quaternary: #FFFFFF;
+}
+
