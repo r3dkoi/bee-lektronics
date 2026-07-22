@@ -206,26 +206,27 @@ title, h1, h2, h3, h4, h5, h6 {
     padding: 2rem;
     margin-top: 1.5rem;
 
-    /* Let's scroll buttons/markers below position themselves relative to this container */
+    /* Lets scroll buttons/markers below position themselves relative to this container */
     anchor-name: --featured-carousel;
     scroll-marker-group: after; /* generates dot navigation from each item's ::scroll-marker */
 
-    .carousel-featured::-webkit-scrollbar {
-        display: none;  /* Firefox uses scrollbar-width above, this is the Chrome/Safari equivalent */
-    }
+    scrollbar-width: none;
+}
 
-    .carousel-item {
-        flex: 0 0 280px; 
-        scroll-snap-align: center; /*Each item snaps to center of viewport when scrolled to */
-        background-color: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.carousel-featured::-webkit-scrollbar {
+    display: none; /* Firefox uses scrollbar-width above, this is the Chrome/Safari equivalent */
+}
 
-    .carousel-item img {
-        width: 100%;
-        height: auto;
-        border-radius: 12px;
-    }
+.carousel-item {
+    flex: 0 0 280px;
+    scroll-snap-align: center; /* each item snaps to center of viewport when scrolled to */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
 }
