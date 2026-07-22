@@ -19,6 +19,30 @@
         <a href="{{ url_for('cart.view_cart') }}" class="nav-link">Cart</a>
     </header>
     
+    <!-- Shopping Minicart Overlay -->
+    <div class="minicart-overlay" id="minicart-overlay" hidden>
+        <div class="minicart-panel">
+            <div class="minicart-header">
+                <h2>Shopping Cart</h2>
+                <button type="button" id="minicart-close" aria-label="Close">&times;</button>
+            </div>
+
+            <div class="minicart-items" id="minicart-items">
+                <!-- POPULATE BY JS VIA FETCH -- EMPTY STATE SHOWN UNTIL CART DATA LOADS -->
+                <p class="minicart-empty">Your Shopping Cart Is Empty</p>
+            </div>
+
+            <div class="minicart-footer" id="minicart-footer" hidden>
+                <div class="minicart-subtotal">
+                    <span>Subtotal</span>
+                    <span id="minicart-subtotal-amount">$0.00</span> <!-- Will be overwritten in JavaScript/Fetch -->
+                </div>
+                <a href="#" class="button-checkout">Checkout</a> <!-- TODO: swap to url_for('orders.checkout') once routes/orders.py exists -->
+            </div>
+        </div>
+    </div>
+
+
     <!-- Every page's unique content is put here -->
     <main>
         {% block content %}{% endblock %}
