@@ -24,6 +24,8 @@
 
     --font-big: 'Sulphur Point', sans-serif;
     --font-small: 'IBM Plex Sans', sans-serif;
+
+    --section-spacing: clamp(3.125rem, 6vw, 5rem); /* fluid 50px-80px */
 }
 
 /* -------------------------------------------------------------------------- */
@@ -178,13 +180,14 @@ title, h1, h2, h3, h4, h5, h6 {
 /* -------------------------------------------------------------------------- */
 .featured {
     background: linear-gradient(to bottom, var(--colour-secondary), var(--colour-p));
+    padding-block: var(--section-spacing);
 }
 
 .featured-text {
-    display: column;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     text-align: center;
-    padding-top: 5rem;
 }
 
 .featured-text > h2 {
@@ -209,6 +212,23 @@ title, h1, h2, h3, h4, h5, h6 {
     scroll-snap-type: x mandatory; /* forces items to lock into place instead of free-scrolling */
     scroll-behavior: smooth;
     padding: 2rem;
+
+    /* Firefox: thumb colour / track colour */
+    scrollbar-color: var(--colour-tertiary) transparent;
+}
+
+/* Chrome/Safari/Edge: scrollbar is styled via pseudo-elements instead of scrollbar-color */
+.carousel-featured::-webkit-scrollbar {
+    height: 8px;
+}
+
+.carousel-featured::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.carousel-featured::-webkit-scrollbar-thumb {
+    background-color: var(--colour-tertiary);
+    border-radius: 999px;
 }
 
 .carousel-item {
@@ -225,11 +245,7 @@ title, h1, h2, h3, h4, h5, h6 {
     border-radius: 12px;
 }
 
-/* -------------------------------------------------------------------------- */
-/*                   Manual carousel controls (buttons + dots)               */
-/*   Plain HTML/JS-driven controls, works in every browser (unlike the       */
-/*   Chromium-only ::scroll-button()/::scroll-marker-group CSS features).    */
-/* -------------------------------------------------------------------------- */
+/* Manual carousel controls (buttons + dots) */       
 
 .carousel-nav {
     position: absolute;
@@ -275,3 +291,53 @@ title, h1, h2, h3, h4, h5, h6 {
 .carousel-dots button.is-active {
     background-color: var(--colour-tertiary);
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                   Footer                                   */
+/* -------------------------------------------------------------------------- */
+.site-footer {
+    background-color: var(--colour-primary);
+    padding-block: var(--section-spacing);
+    padding-inline: 2rem;
+    text-align: center;
+}
+
+.footer-brand-logo img {
+    height: 4rem;
+    width: auto;
+}
+
+.footer-bottom {
+    color: var(--colour-p)
+}
+.footer-top {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+.footer-links {
+    justify-self: start;
+}
+
+.footer-links a {
+    color: var(--colour-p);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.footer-github-link {
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+}
+
+.footer-github-link img {
+    height: 1.5rem;
+    width: auto;
+}
+
+
