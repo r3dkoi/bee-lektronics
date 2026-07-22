@@ -15,13 +15,15 @@ def get_cart_details():
     for product_id_str, quantity in cart_dict.items():
         product = next((p for p in PRODUCTS if p["id"] == int(product_id_str)), None)
         if product:
-            subtotal += product["price"] * quantity
+            line_total = product["price"] * quantity
+            subtotal += line_total
             items.append({
                 "id": product["id"],
                 "name": product["name"],
                 "price": product["price"],
                 "image": product["image"],
                 "quantity": quantity,
+                "line_total": line_total,
             })
     return items, subtotal
 
