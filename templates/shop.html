@@ -3,6 +3,18 @@
 {% block title %}Shop | Bee-lektronics{% endblock %}
 
 {% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="order-confirmed-overlay" id="order-confirmed-overlay">
+                <div class="order-confirmed-message">
+                    <button type="button" id="order-confirmed-close" aria-label="Close">&times;</button>
+                    <h2>ORDER CONFIRMED</h2>
+                    <p>Thank you for shopping with us.</p>
+                </div>
+            </div>
+        {% endif %}
+    {% endwith %}
+
     <section class="shop-header">
         <h1>Our Products</h1>
         <p>Great technology is judged by how it performs, not how it looks on a shelf...</p>
