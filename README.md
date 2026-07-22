@@ -92,3 +92,7 @@ https://openverse.org/image/1e62d106-4209-4e4c-8629-9e0bffeb3f28?q=honey+comb&p=
 GUIDES USED
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Overflow/Carousels
+
+RESOURCES USED
+
+https://fonts.google.com/specimen/Sulphur+Point?preview.script=Latn
