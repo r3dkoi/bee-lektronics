@@ -8,7 +8,7 @@
     <section class="checkout-delivery">
         <h1>Delivery</h1>
 
-        <form method="POST" action="{{ url_for(.orders.checkout) }}" class="delivery-form">
+        <form method="POST" action="{{ url_for('orders.checkout') }}" class="delivery-form">
             <label>
                 Country / Region
                 <select name="country">
@@ -60,7 +60,7 @@
                 <p class="item-name">{{ item.name }}</p>
                 <p class="item-quantity">Qty: {{ item.quantity }} </p>
             </div>
-            <span class="item-price">${{ "%.2f"|format(item.quantity) }}</span>
+            <span class="item-price">${{ "%.2f"|format(item.line_total) }}</span>
         </div>
         {% endfor %}
 
