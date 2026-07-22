@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout | Bee-lektronics{% endblock %}
+
+{% block content %}
+
+<div class="checkout-layout">
+    <section class="checkout-delivery">
+        <h1>Delivery</h1>
+
+        <form method="POST" action="{{ url_for(.orders.checkout) }}" class="delivery-form">
+            <label>
+                Country / Region
+                <select name="country">
+                    <option value="">Select...</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="AU">Australia</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="NZ">New Zealand</option>
+                </select>
+            </label>
+
+            <div class="name-row">
+                <label>
+                    First Name
+                    <input type="text" name="first_name" pattern="[A-Za-z\s'-]+" title="Letters only" required minlength="5">
+                </label>
+                <label>
+                    Last Name
+                    <input type="text" name="last_name" pattern="[A-Za-z\s'-]+" title="Letters only" required minlength="5">
+                </label>
+            </div>
+
+            <label>
+                Address
+                <input type="text" name="address" required minlength="5">
+            </label>
+
+            <div class="location-row">
+                <label>
+                    City 
+                    <input type="text" name="city" pattern="[A-Za-z\s'-]+" title="Letters only" required minlength="5">
+                </label>
+                <label>
+                    Postal Code
+                <input type="text" name="postal_code" inputmode="text" autocomplete="postal-code" required minlength="5">
+                </label>
+            </div>
+
+            <button type="submit" class="button-confirm-checkout">Save Details and Confirm Checkout</button>
+        </form>
+    </section>
+
+    <aside class="checkout-summary">
+        {% for item in cart_items %}
+        <div class="checkout-item">
+            <img src="{{ item.image}}" alt="{{ item.name}}">
+            <div class="checkout-item-info">
+                <p class="item-name">{{ item.name }}</p>
+                <p class="item-quantity">Qty: {{ item.quantity }} </p>
+            </div>
+            <span class="item-price">${{ "%.2f"|format(item.quantity) }}</span>
+        </div>
+        {% endfor %}
+
+        <div class="checkout-totals">
+            <div class="totals-row">
+                <span>Subtotal</span>
+                <span>${{ "%.2f"|format(subtotal) }}</span>
+            </div>
+        </div>
+    </aside>
+</div>
+
+{% endblock %}
