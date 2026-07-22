@@ -23,11 +23,11 @@ def shop():
     # TODO: Once category exists as foreign key thats part of Products table include for category route in shop.html
     total_pages = 2 #Placeholder until real pagination exists ^
     products = [
-        {"id": 1, "name": "Arduino Uno", "price": 24.99, "category": "Computer", "image": "https://placehold.co/300x200.png"},
-        {"id": 2, "name": "Raspberry Pi 4", "price": 59.99, "category": "Computer", "image": "https://placehold.co/300x200.png"},
-        {"id": 3, "name": "Oppo Reno 91", "price": 19.00, "category": "Phone", "image": "https://placehold.co/300x200.png"},
-        {"id": 4, "name": "Samsung Galaxy S30", "price": 899.99, "category": "Phone", "image": "https://placehold.co/300x200.png"},
-        {"id": 5, "name": "iPhone 20", "price": 999.99, "category": "Phone", "image": "https://placehold.co/300x200.png"},
+        {"id": 1, "name": "Arduino Uno", "price": 24.99, "category": "Computer", "image": "https://placehold.co/300x200.png", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
+        {"id": 2, "name": "Raspberry Pi 4", "price": 59.99, "category": "Computer", "image": "https://placehold.co/300x200.png", "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna."},
+        {"id": 3, "name": "Oppo Reno 91", "price": 19.00, "category": "Phone", "image": "https://placehold.co/300x200.png", "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco."},
+        {"id": 4, "name": "Samsung Galaxy S30", "price": 899.99, "category": "Phone", "image": "https://placehold.co/300x200.png", "description": "Duis aute irure dolor in reprehenderit in voluptate velit."},
+        {"id": 5, "name": "iPhone 20", "price": 999.99, "category": "Phone", "image": "https://placehold.co/300x200.png", "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa."},
     ]
     return render_template('shop.html', products=products, page=page, total_pages=total_pages)
 
