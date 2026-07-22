@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from app.config import Config
 from routes.main import main
 from routes.cart import cart
-# from routes.orders import orders   # TODO: uncomment once routes/orders.py exists
+from routes.orders import orders
 # from routes.admin import admin     # TODO: uncomment once routes/admin.py exists
 
 
@@ -20,7 +20,7 @@ def create_app():
     # Register each blueprint so their routes/url_for() names become available.
     app.register_blueprint(main)
     app.register_blueprint(cart)
-    # app.register_blueprint(orders)
+    app.register_blueprint(orders)
     # app.register_blueprint(admin)
 
     return app
