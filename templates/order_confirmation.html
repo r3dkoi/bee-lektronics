@@ -48,6 +48,29 @@
                 </label>
             </div>
 
-            
+            <button type="submit" class="button-confirm-checkout">Save Details and Confirm Checkout</button>
         </form>
+    </section>
+
+    <aside class="checkout-summary">
+        {% for item in cart_items %}
+        <div class="checkout-item">
+            <img src="{{ item.image}}" alt="{{ item.name}}">
+            <div class="checkout-item-info">
+                <p class="item-name">{{ item.name }}</p>
+                <p class="item-quantity">Qty: {{ item.quantity }} </p>
+            </div>
+            <span class="item-price">${{ "%.2f"|format(item.quantity) }}</span>
+        </div>
+        {% endfor %}
+
+        <div class="checkout-totals">
+            <div class="totals-row">
+                <span>Subtotal</span>
+                <span>${{ "%.2f"|format(subtotal) }}</span>
+            </div>
+        </div>
+    </aside>
 </div>
+
+{% endblock %}
