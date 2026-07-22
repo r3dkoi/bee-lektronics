@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 
-/* Palette */
+/* Palette & Font Families*/
 :root {
     --colour-primary: #2c2d32;
     --colour-primary-gradient: #3d4357;
@@ -14,5 +14,41 @@
     --colour-tertiary: #310000;
     --colour-p: #FFEECA;
     --colour-quaternary: #FFFFFF;
+
+    --font-big: 'Sul'
 }
 
+/* Inserting Font Families */
+/* IBM Plex Sans — variable font (all weights in one file) */
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url('../fonts/IBMPlexSans-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 100 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url('../fonts/IBMPlexSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 100 700;
+    font-style: italic;
+}
+
+/* Sulphur Point — fixed weights */
+@font-face {
+    font-family: 'Sulphur Point';
+    src: url('../fonts/SulphurPoint-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Sulphur Point';
+    src: url('../fonts/SulphurPoint-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Sulphur Point';
+    src: url('../fonts/SulphurPoint-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
