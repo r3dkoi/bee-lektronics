@@ -64,13 +64,19 @@
     </main>
     
     <footer class="site-footer">
-        <div class="footer-brand-logo">
-            <img src="{{ url_for('static', filename='images/bee_logo.png') }}" alt="Bee-lektronics Logo">
-        </div>
+        <div class="footer-top">
+            <nav class="footer-links">
+                <a href="{{ url_for('main.shop') }}">Shop</a>
+            </nav>
 
-        <nav class="footer-links">
-            <a href="{{ url_for('main.shop') }}">Shop</a>
-        </nav>
+            <div class="footer-brand-logo">
+                <img src="{{ url_for('static', filename='images/bee_logo.png') }}" alt="Bee-lektronics Logo">
+            </div>
+
+            <a href="https://github.com/r3dkoi/bee-lektronics" target="_blank" rel="noopener" class="footer-github-link">
+                <img src="{{ url_for('static', filename='images/GitHub_Invertocat_White_Clearspace.png') }}" alt="Github Repo">
+            </a>
+        </div>
 
         <div class="footer-bottom">
             &copy; 2026 Koi & aardlucra. All rights reserved.
