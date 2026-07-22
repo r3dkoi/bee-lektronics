@@ -179,3 +179,53 @@ title, h1, h2, h3, h4, h5, h6 {
 .featured {
     background: linear-gradient(to bottom, var(--colour-secondary), var(--colour-p));
 }
+
+.featured-text {
+    display: column;
+    justify-content: center;
+    text-align: center;
+    padding-top: 5rem;
+}
+
+.featured-text > h2 {
+    font-size: 3rem;
+    font-weight: bolder;
+    color: var(--colour-tertiary);
+}
+
+.featured-text > p {
+    font-size: 1.1rem;
+    color: var(--colour-hover-on);
+}
+.carousel-featured {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory; /* forces items to lock into place instead of free-scrolling */
+    scroll-behavior: smooth;
+    padding: 2rem;
+    margin-top: 1.5rem;
+
+    /* Let's scroll buttons/markers below position themselves relative to this container */
+    anchor-name: --featured-carousel;
+    scroll-marker-group: after; /* generates dot navigation from each item's ::scroll-marker */
+
+    .carousel-featured::-webkit-scrollbar {
+        display: none;  /* Firefox uses scrollbar-width above, this is the Chrome/Safari equivalent */
+    }
+
+    .carousel-item {
+        flex: 0 0 280px; 
+        scroll-snap-align: center; /*Each item snaps to center of viewport when scrolled to */
+        background-color: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+    }
+}
