@@ -22,14 +22,23 @@ def shop():
     # TODO: once real products exist, use Flask-SQLAlchemy's built-in pagination
     # TODO: Once category exists as foreign key thats part of Products table include for category route in shop.html
     total_pages = 2 #Placeholder until real pagination exists ^
-    return render_template('shop.html', page=page, total_pages=total_pages)
+    products = [
+        {"id": 1, "name": "Arduino Uno", "price": 24.99, "category": "Computer", "image": "https://placehold.co/300x200.png"},
+        {"id": 2, "name": "Raspberry Pi 4", "price": 59.99, "category": "Computer", "image": "https://placehold.co/300x200.png"},
+        {"id": 3, "name": "Oppo Reno 91", "price": 19.00, "category": "Phone", "image": "https://placehold.co/300x200.png"},
+        {"id": 4, "name": "Samsung Galaxy S30", "price": 899.99, "category": "Phone", "image": "https://placehold.co/300x200.png"},
+        {"id": 5, "name": "iPhone 20", "price": 999.99, "category": "Phone", "image": "https://placehold.co/300x200.png"},
+    ]
+    return render_template('shop.html', products=products, page=page, total_pages=total_pages)
 
 
 @main.route('/product/<int:product_id>')
 def product_detail(product_id):
-     #TODO: replace with real lookup, e.g. Product.query.get_or_404(product_id)
-     #From product database list
-    return render_template('product_detail.html')
+    #TODO: replace with real lookup, e.g. Product.query.get_or_404(product_id)
+    #From product database list
+    #Temporary hardcoded list for testing
+    product = {"id": product_id, "name": "Arduino Uno", "price": 24.99, "category": "Phone", "image": "https://placehold.co/300x200.png"}
+    return render_template('product_detail.html', product=product)
 
 
 @main.route('/about')
