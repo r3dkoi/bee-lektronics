@@ -16,7 +16,7 @@
             <img src="{{ url_for('static', filename='images/bee_logo.png') }}" alt="Bee-lektronics Logo">
         </a>
 
-        <a href="{{ url_for('cart.view_cart') }}" class="nav-link">Cart</a>
+        <button type="button" id="cart-toggle" class="nav-link">Cart</button>
     </header>
     
     <!-- Shopping Minicart Overlay -->
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </template>
-            
+
             <div class="minicart-footer" id="minicart-footer" hidden>
                 <div class="minicart-subtotal">
                     <span>Subtotal</span>
