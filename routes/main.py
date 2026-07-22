@@ -18,7 +18,9 @@ def shop():
     # Product listing page.
     # TODO: replace with real query, e.g. Product.query.all()
     page = request.args.get('page', 1, type=int)
+    # category = request.args.get('category') #e.g 'phones' or None (Uncomment once TODO is done)
     # TODO: once real products exist, use Flask-SQLAlchemy's built-in pagination
+    # TODO: Once category exists as foreign key thats part of Products table include for category route in shop.html
     total_pages = 2 #Placeholder until real pagination exists ^
     return render_template('shop.html', page=page, total_pages=total_pages)
 
