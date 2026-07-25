@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeButton = document.getElementById('minicart-close');
     const itemsContainer = document.getElementById('minicart-items');
     const itemTemplate = document.getElementById('minicart-item-template');
+    const emptyMessage = itemsContainer.querySelector('.minicart-empty');
     const footer = document.getElementById('minicart-footer');
     const subtotalAmount = document.getElementById('minicart-subtotal-amount');
 
@@ -22,12 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const formatCurrency = (amount) => `$${amount.toFixed(2)}`;
 
     /* Rendering — takes the JSON shape returned by every /cart/* endpoint
-       ({ items: [...], subtotal }) and redraws the item list from scratch. */
+       ({ items: [...], subtotal }) and redraws the item list from scratch.
+       The "empty" message is the same <p> that's already in base.html — it's
+       only ever shown/hidden, never removed, so there's nothing to recreate. */
     const renderCart = (data) => {
-        itemsContainer.innerHTML = '';
+        itemsContainer.querySelectorAll('.minicart-item').forEach((node) => node.remove());
+        emptyMessage.hidden = data.items.length > 0;
 
         if (!data.items.length) {
-            itemsContainer.innerHTML = '<p class="minicart-empty">Your Shopping Cart Is Empty</p>';
             footer.hidden = true;
             return;
         }
@@ -78,10 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCart(await response.json());
     };
 
-    toggleButton.addEventListener('click', () => {
-        open();
-        refreshCart();
-    });
+    // No need to refetch here — every add/update/remove call already
+    // re-renders from its own response, so state is kept in sync as it
+    // happens rather than re-pulled (and risking a stale response racing
+    // an in-flight mutation) each time the panel is opened.
+    toggleButton.addEventListener('click', open);
     closeButton.addEventListener('click', close);
 
     /* Add-to-cart delegation — "Add to Cart" forms live on shop.html and
