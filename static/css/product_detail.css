@@ -8,7 +8,13 @@
 }
 
 .breadcrumbs a {
+    color: var(--colour-primary);
     text-decoration: none;
+}
+
+.breadcrumbs span {
+    font-weight: bold;
+    color: var(--colour-tertiary);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -51,6 +57,7 @@
 .product-info h1 {
     font-size: 2rem;
     font-weight: bold;
+    color: var(--colour-tertiary);
     line-height: 1.2;
 }
 
@@ -60,7 +67,6 @@
 
 .product-info .price {
     font-size: 1.5rem;
-    font-weight: bold;
     margin-top: 0.5rem;
 }
 
@@ -76,26 +82,32 @@
 }
 
 .quantity-selector {
-    display: flex;
-    align-items: center;
+    display: inline-flex;
+    align-items: stretch;
+    width: fit-content;
     height: 2.75rem;
     border-radius: 999px;
     overflow: hidden;
 }
 
+.quantity-selector button, button[type="submit"] {
+    background-color: var(--colour-tertiary);
+    color: var(--colour-quaternary);
+}
 .quantity-selector button {
-    flex: 0 0 2.75rem;
-    height: 100%;
+    flex: none;
+    width: 2.75rem;
     border: none;
     cursor: pointer;
 }
 
 .quantity-selector input {
-    flex: 0 0 2.75rem;
-    height: 100%;
+    flex: none;
+    width: 3.25rem;
     text-align: center;
     border: none;
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .quantity-selector input::-webkit-outer-spin-button,
