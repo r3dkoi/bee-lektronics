@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/product_detail.css') }}">
 {% endblock %}
 
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/product_detail.js') }}"></script>
+{% endblock %}
+
 {% block content %}
 
 <nav class="breadcrumbs">
@@ -27,9 +31,9 @@
 
         <form method="POST" action="{{ url_for('cart.add_to_cart', product_id=product.id) }}" class="add-to-cart-form">
             <div class="quantity-selector">
-                <button type="button">-</button>
-                <input type="number" name="quantity" value="0" min="0">
-                <button type="button">+</button>
+                <button type="button" class="quantity-decrease">-</button>
+                <input type="number" name="quantity" value="1" min="1" class="quantity-value">
+                <button type="button" class="quantity-increase">+</button>
             </div>
             <button type="submit">Add to Cart</button>
         </form>
