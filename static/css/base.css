@@ -13,11 +13,11 @@
 /* -------------------------------------------------------------------------- */
 
 :root {
-    --colour-primary: #2c2d32;
+    --colour-hover-on: #2c2d32;
     --colour-primary-gradient: #3d4357;
     --colour-secondary: #D4A418;
     --colour-tertiary: #310000;
-    --colour-hover-on: #0D0D0D;
+    --colour-primary: #0D0D0D;
 
     --colour-p: #FFEECA;
     --colour-quaternary: #FFFFFF;
@@ -89,14 +89,14 @@ title, h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar .nav-link {
-    justify-self: start;
+    justify-self: center;
     text-decoration: none;
     text-transform: uppercase;
-    color: var(--colour-p)
+    color: var(--colour-quaternary)
 }
 
 #cart-toggle.nav-link {
-    justify-self: end;
+    justify-self: center;
     background: none;
     border-top: none;
     border-left: none;
@@ -107,7 +107,7 @@ title, h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar .nav-link:hover {
-    color: var(--colour-quaternary);
+    color: var(--colour-secondary);
     text-decoration: underline;
 }
 
