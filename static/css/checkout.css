@@ -1,0 +1,115 @@
+/* -------------------------------------------------------------------------- */
+/*                                Checkout layout                             */
+/* -------------------------------------------------------------------------- */
+
+.checkout-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Delivery section                              */
+/* -------------------------------------------------------------------------- */
+
+.checkout-delivery {
+    padding: 3rem 4rem;
+}
+
+.checkout-delivery h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.delivery-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 480px;
+}
+
+.delivery-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.delivery-form input,
+.delivery-form select {
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    border: 1px solid;
+    font-size: 1rem;
+}
+
+.name-row,
+.location-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.button-confirm-checkout {
+    background-color: var(--colour-tertiary);
+    color: var(--colour-quaternary);
+    margin-top: 1rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                               Order summary                                */
+/* -------------------------------------------------------------------------- */
+
+.checkout-summary {
+    padding: 3rem 4rem;
+    background-color: var(--colour-secondary);
+}
+
+.checkout-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid;
+}
+
+.checkout-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.checkout-item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.item-quantity {
+    font-size: 0.85rem;
+}
+
+.checkout-totals {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.totals-row {
+    display: flex;
+    justify-content: space-between;
+}

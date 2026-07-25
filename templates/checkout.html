@@ -28,27 +28,27 @@
             <div class="name-row">
                 <label>
                     First Name
-                    <input type="text" name="first_name" pattern="[A-Za-z\s'-]+" title="Letters only" required minlength="5">
+                    <input type="text" name="first_name" pattern="[A-Za-z\s'-]+" title="Letters only" required minlength="5" maxlength="10">
                 </label>
                 <label>
                     Last Name
-                    <input type="text" name="last_name" pattern="[A-Za-z\s'-]+" title="Letters only" required minlength="5">
+                    <input type="text" name="last_name" pattern="[A-Za-z\s'-]+" title="Letters only" required minlength="5" maxlength="10">
                 </label>
             </div>
 
             <label>
                 Address
-                <input type="text" name="address" required minlength="5">
+                <input type="text" name="address" pattern="[A-Za-z0-9\s'.,#-]+" title="Letters, numbers, and basic punctuation only" required minlength="5" maxlength="20">
             </label>
 
             <div class="location-row">
                 <label>
-                    City 
-                    <input type="text" name="city" pattern="[A-Za-z\s'-]+" title="Letters only" required minlength="5">
+                    City
+                    <input type="text" name="city" pattern="[A-Za-z\s'-]+" title="Letters only" required minlength="5" maxlength="10">
                 </label>
                 <label>
                     Postal Code
-                <input type="text" name="postal_code" inputmode="text" autocomplete="postal-code" required minlength="5">
+                <input type="text" name="postal_code" pattern="[A-Za-z0-9\s-]{3,10}" title="3-10 letters, numbers, spaces, or hyphens" inputmode="text" autocomplete="postal-code" required minlength="3" maxlength="4">
                 </label>
             </div>
 
