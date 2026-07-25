@@ -37,9 +37,12 @@ def cart_data():
 
 @cart.route('/cart/add/<int:product_id>', methods=['POST'])
 def add_to_cart(product_id):
+    # product_detail.html's quantity selector; shop.html's grid form sends
+    # no body at all, so this defaults to adding a single unit.
+    quantity = (request.get_json(silent=True) or {}).get('quantity', 1)
     cart_dict = session.get('cart', {})
     key = str(product_id)
-    cart_dict[key] = cart_dict.get(key, 0) + 1
+    cart_dict[key] = cart_dict.get(key, 0) + quantity
     session['cart'] = cart_dict
     items, subtotal = get_cart_details()
     return jsonify({"items": items, "subtotal": subtotal})
