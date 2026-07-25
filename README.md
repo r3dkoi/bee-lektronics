@@ -93,6 +93,8 @@ GUIDES USED
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Overflow/Carousels
 
+https://hype4.academy/tools/glassmorphism-generator
+
 RESOURCES USED
 
 https://fonts.google.com/specimen/Sulphur+Point?preview.script=Latn
