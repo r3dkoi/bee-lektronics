@@ -132,11 +132,11 @@
 }
 
 .category-filter h3, label {
-    color: var(--colour-p)
+    color: var(--colour-quaternary)
 }
 
 .category-filter span {
-    color: var(--colour-quaternary)
+    color: var(--colour-p)
 }
 .category-filter h3 {
     display: flex;
