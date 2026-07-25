@@ -2,6 +2,10 @@
 /*                              Minicart overlay                              */
 /* -------------------------------------------------------------------------- */
 
+.minicart-overlay[hidden] {
+    display: none;
+}
+
 .minicart-overlay {
     position: fixed;
     inset: 0;
