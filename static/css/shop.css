@@ -6,8 +6,56 @@
     text-align: center;
     padding-block: var(--section-spacing);
     padding-inline: 2rem;
+    background-color: var(--colour-secondary);
 }
 
+.shop-hero-text {
+    position: relative;
+    overflow: hidden;
+    padding: 1.5rem 2rem;
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--colour-primary) 80%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid color-mix(in srgb, var(--colour-p) 40%, transparent);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 color-mix(in srgb, var(--colour-p) 50%, transparent),
+        inset 0 -1px 0 color-mix(in srgb, var(--colour-p) 10%, transparent);
+}
+
+.shop-hero-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        color-mix(in srgb, var(--colour-p) 80%, transparent),
+        transparent
+    );
+}
+
+.shop-hero-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--colour-p) 80%, transparent),
+        transparent,
+        color-mix(in srgb, var(--colour-p) 30%, transparent)
+    );
+}
+.shop-header h1, p {
+    color: var(--colour-quaternary)
+}
 .shop-header h1 {
     font-size: 2.5rem;
     letter-spacing: 0.05rem;
@@ -23,6 +71,7 @@
 /* -------------------------------------------------------------------------- */
 
 .shop-layout {
+    background: linear-gradient(to bottom, var(--colour-secondary), var(--colour-p));
     display: grid;
     grid-template-columns: minmax(180px, 220px) 1fr;
     gap: 2rem;
@@ -35,12 +84,60 @@
 /* -------------------------------------------------------------------------- */
 
 .category-filter {
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     padding: 1.5rem;
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--colour-primary) 80%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid color-mix(in srgb, var(--colour-p) 40%, transparent);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 color-mix(in srgb, var(--colour-p) 50%, transparent),
+        inset 0 -1px 0 color-mix(in srgb, var(--colour-p) 10%, transparent);
 }
 
+.category-filter::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        color-mix(in srgb, var(--colour-p) 80%, transparent),
+        transparent
+    );
+}
+
+.category-filter::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--colour-p) 80%, transparent),
+        transparent,
+        color-mix(in srgb, var(--colour-p) 30%, transparent)
+    );
+}
+
+.category-filter h3, label {
+    color: var(--colour-p)
+}
+
+.category-filter span {
+    color: var(--colour-quaternary)
+}
 .category-filter h3 {
     display: flex;
     align-items: center;
@@ -66,11 +163,13 @@
     align-items: center;
     text-align: center;
     max-width: 320px;
+    background-color: var(--colour-primary);
     padding: 1.5rem;
     border-radius: 8px;
 }
 
 .product-card a {
+    color: var(--colour-p);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -87,10 +186,14 @@
 }
 
 .product-card h3 {
+    color: var(--colour-p);
     font-size: 1rem;
     margin-bottom: 0.5rem;
 }
 
+.product-card p, .price {
+    color: var(--colour-quaternary);
+}
 .product-card p {
     font-size: 0.85rem;
     margin-bottom: 0.75rem;
@@ -106,6 +209,7 @@
 }
 
 .product-card button {
+    background-color: var(--colour-p);
     width: 100%;
     padding: 0.6rem 1rem;
     border: none;
@@ -118,6 +222,7 @@
 /* -------------------------------------------------------------------------- */
 
 .pagination {
+    background-color: var(--colour-p);
     display: flex;
     justify-content: center;
     gap: 0.75rem;
@@ -126,6 +231,7 @@
 }
 
 .pagination a {
+    color: var(--colour-primary);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -138,6 +244,8 @@
 
 .pagination a.active {
     font-weight: bold;
+    color: var(--colour-tertiary);
+    text-decoration: underline;
 }
 
 /* -------------------------------------------------------------------------- */
