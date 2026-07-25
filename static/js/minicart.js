@@ -110,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const response = await fetch(form.action, options);
         renderCart(await response.json());
-        open();
     });
 
     // Keep the subtotal accurate even before the user opens the overlay.
