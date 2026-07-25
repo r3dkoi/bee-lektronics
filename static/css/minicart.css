@@ -12,6 +12,9 @@
     z-index: 200;
     display: flex;
     justify-content: flex-end;
+    /* The overlay itself has no visible backdrop, so let clicks fall through
+       to the page underneath — only the panel should actually catch them. */
+    pointer-events: none;
 }
 
 .minicart-panel {
@@ -21,6 +24,7 @@
     flex-direction: column;
     background-color: var(--colour-quaternary);
     box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+    pointer-events: auto;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -76,12 +80,16 @@
 }
 
 .minicart-item-info {
+    
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
 }
 
+.minicart-empty, .minicart-item-info {
+    color: var(--colour-primary);
+}
 .item-name {
     font-weight: bold;
 }
@@ -134,4 +142,5 @@
     border-radius: 999px;
     text-decoration: none;
     font-weight: bold;
+    background: var(--colour-primary);
 }

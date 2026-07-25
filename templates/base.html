@@ -54,7 +54,7 @@
                     <span>Subtotal</span>
                     <span id="minicart-subtotal-amount">$0.00</span> <!-- Will be overwritten in JavaScript/Fetch -->
                 </div>
-                <a href="#" class="button-checkout">Checkout</a> <!-- TODO: swap to url_for('orders.checkout') once routes/orders.py exists -->
+                <a href="{{ url_for('orders.checkout') }}" class="button-checkout">Checkout</a>
             </div>
         </div>
     </div>
