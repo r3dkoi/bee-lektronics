@@ -119,8 +119,7 @@
 
 .pagination {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items: end;
     gap: 0.75rem;
     margin-top: 2.5rem;
     padding-bottom: 2rem;
