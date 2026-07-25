@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}">
 {% endblock %}
 
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/checkout.js') }}"></script>
+{% endblock %}
+
 {% block content %}
 
 <div class="checkout-layout">
