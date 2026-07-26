@@ -384,7 +384,7 @@ title, h1, h2, h3, h4, h5, h6 {
 
 
 /* -------------------------------------------------------------------------- */
-/*                                 Breakpoints                                */
+/*                   Breakpoints for home.html and base.html                  */
 /* -------------------------------------------------------------------------- */
 /* Tablet: ≤768px */
 @media (max-width: 768px) {
@@ -405,7 +405,7 @@ title, h1, h2, h3, h4, h5, h6 {
     }
 }
 
-/* Mobile: ≤480px (e.g. 414 x 846) */
+/* Mobile: ≤480px */
 @media (max-width: 480px) {
     .navbar {
         padding: 0.75rem 1rem; /* further reduce navbar padding on small screens */
@@ -446,5 +446,98 @@ title, h1, h2, h3, h4, h5, h6 {
 
     .footer-brand-logo img {
         height: 3rem; /* shrink footer logo for mobile */
+    }
+}
+
+/* Tablet: ≤768px */
+@media (max-width: 768px) {
+    .hero {
+        min-height: 26rem; /* decouple hero height from image aspect ratio so hero-text has room */
+    }
+
+    .hero > img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .hero-text {
+        max-width: 90%;
+        padding: 1.25rem 1.5rem;
+        bottom: 2rem;
+    }
+
+    .hero-text h1 {
+        font-size: 2.25rem;
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+    }
+
+    .featured-text > h2 {
+        font-size: 2.25rem;
+    }
+
+    .featured-text > p {
+        font-size: 1rem;
+    }
+
+    .carousel-item {
+        flex: 0 0 220px;
+    }
+}
+
+/* Mobile: ≤480px (e.g. 414 x 846) */
+@media (max-width: 480px) {
+    .hero {
+        min-height: 24rem;
+    }
+
+    .hero-text {
+        max-width: 92%;
+        padding: 1rem 1.25rem;
+        bottom: 1.25rem;
+        border-radius: 8px;
+    }
+
+    .hero-text h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-text p {
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+
+    .button-explore {
+        margin-top: 1rem;
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .featured-text > h2 {
+        font-size: 1.6rem;
+    }
+
+    .featured-text > p {
+        font-size: 0.9rem;
+    }
+
+    .carousel-featured {
+        gap: 1rem;
+        padding: 1.25rem 0.5rem;
+    }
+
+    .carousel-item {
+        flex: 0 0 160px; /* smaller cards so more of the carousel is visible on narrow screens */
+    }
+
+    .carousel-nav {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.1rem;
     }
 }
