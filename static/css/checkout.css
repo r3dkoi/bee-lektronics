@@ -113,3 +113,66 @@
     display: flex;
     justify-content: space-between;
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                 Breakpoints                                */
+/* -------------------------------------------------------------------------- */
+
+/* Tablet: ≤768px */
+@media (max-width: 768px) {
+    .checkout-layout {
+        grid-template-columns: 1fr; /* stack delivery form above order summary */
+        min-height: auto;
+    }
+
+    .checkout-delivery,
+    .checkout-summary {
+        padding: 2rem;
+    }
+
+    .checkout-delivery h1 {
+        font-size: 2rem;
+    }
+
+    .delivery-form {
+        max-width: none;
+    }
+}
+
+/* Mobile: ≤480px (e.g. 414 x 846) */
+@media (max-width: 480px) {
+    .checkout-delivery,
+    .checkout-summary {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .checkout-delivery h1 {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .name-row,
+    .location-row {
+        grid-template-columns: 1fr; /* stack fields that were side by side */
+    }
+
+    .delivery-form input,
+    .delivery-form select {
+        padding: 0.75rem 0.9rem;
+        font-size: 0.95rem;
+    }
+
+    .button-confirm-checkout {
+        padding: 0.85rem;
+        font-size: 0.95rem;
+    }
+
+    .checkout-item img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .checkout-item {
+        gap: 0.75rem;
+    }
+}
