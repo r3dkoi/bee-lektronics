@@ -282,3 +282,79 @@
     cursor: pointer;
 }
 
+/* -------------------------------------------------------------------------- */
+/*                                 Breakpoints                                */
+/* -------------------------------------------------------------------------- */
+
+/* Tablet: ≤768px */
+@media (max-width: 768px) {
+    .shop-header {
+        padding-inline: 1.25rem;
+    }
+
+    .shop-hero-text {
+        padding: 1.25rem 1.5rem;
+    }
+
+    .shop-header h1 {
+        font-size: 2rem;
+    }
+
+    .shop-layout {
+        grid-template-columns: 1fr; /* stack sidebar above product grid */
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .category-filter {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .product-card {
+        max-width: none;
+    }
+}
+
+/* Mobile: ≤480px (e.g. 414 x 846) */
+@media (max-width: 480px) {
+    .shop-header {
+        padding-inline: 1rem;
+    }
+
+    .shop-hero-text {
+        padding: 1rem 1.25rem;
+    }
+
+    .shop-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .shop-header p {
+        font-size: 0.9rem;
+    }
+
+    .shop-layout {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+    }
+
+    .order-confirmed-message {
+        padding: 2rem 1.5rem;
+        margin-inline: 1rem;
+    }
+}
+
