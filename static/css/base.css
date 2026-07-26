@@ -383,3 +383,68 @@ title, h1, h2, h3, h4, h5, h6 {
 }
 
 
+/* -------------------------------------------------------------------------- */
+/*                                 Breakpoints                                */
+/* -------------------------------------------------------------------------- */
+/* Tablet: ≤768px */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.85rem 1.25rem; /* tighten navbar padding for narrower viewport */
+    }
+
+    .navbar .nav-link {
+        font-size: 0.95rem; /* scale down nav text slightly */
+    }
+
+    .brand-logo img {
+        height: 2.25rem; /* shrink logo to match tighter navbar */
+    }
+
+    .footer-top {
+        gap: 1rem; /* reduce spacing between footer columns */
+    }
+}
+
+/* Mobile: ≤480px (e.g. 414 x 846) */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.75rem 1rem; /* further reduce navbar padding on small screens */
+    }
+
+    .navbar .nav-link {
+        font-size: 0.85rem; /* smaller nav text for mobile */
+        padding: 0.5rem; /* keep tap target comfortable despite smaller font */
+    }
+
+    #cart-toggle.nav-link {
+        font-size: 0.85rem; /* match nav-link sizing */
+        padding: 0.5rem; /* keep tap target comfortable */
+    }
+
+    .brand-logo img {
+        height: 2rem; /* smaller logo for mobile navbar */
+    }
+
+    .site-footer {
+        padding-inline: 1rem; /* less side padding on narrow screens */
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr; /* stack footer columns instead of 3-across */
+        justify-items: center; /* center each stacked item */
+        gap: 1.25rem; /* spacing between stacked items */
+        text-align: center;
+    }
+
+    .footer-links {
+        justify-self: center; /* re-center after grid switches to single column */
+    }
+
+    .footer-github-link {
+        justify-self: center; 
+    }
+
+    .footer-brand-logo img {
+        height: 3rem; /* shrink footer logo for mobile */
+    }
+}
