@@ -83,6 +83,11 @@ CSS, JS, and images served as-is (no build step needed).
 - `js/admin.js` — admin page behavior
 - `images/` — product photos, logos, icons
 
+
+SQLITE3 NOTES
+1. To run SQLITE3 in terminal
+    python -m sqlite3 instance/bee.db
+
 IMAGE REFERENCES
 
 https://openverse.org/image/7e29aa97-c842-48d3-a642-55c3de823815?q=bee+icon&p=5
