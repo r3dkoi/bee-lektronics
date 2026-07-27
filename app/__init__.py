@@ -2,6 +2,7 @@ from flask import Flask
 from dotenv import load_dotenv
 
 from app.config import Config
+from app.extensions import db
 from routes.main import main
 from routes.cart import cart
 from routes.orders import orders
@@ -14,6 +15,8 @@ def create_app():
 
     app = Flask(__name__, template_folder='../templates', static_folder='../static')
     app.config.from_object(Config)
+
+    db.init_app(app)
 
     # session (used by cart.py) requires SECRET_KEY to be set — comes from Config above.
 
