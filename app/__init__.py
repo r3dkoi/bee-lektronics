@@ -5,7 +5,7 @@ from app.config import Config
 from routes.main import main
 from routes.cart import cart
 from routes.orders import orders
-# from routes.admin import admin     # TODO: uncomment once routes/admin.py exists
+from routes.admin import admin
 
 
 def create_app():
@@ -21,6 +21,6 @@ def create_app():
     app.register_blueprint(main)
     app.register_blueprint(cart)
     app.register_blueprint(orders)
-    # app.register_blueprint(admin)
+    app.register_blueprint(admin)
 
     return app
