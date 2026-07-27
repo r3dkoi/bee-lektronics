@@ -5,3 +5,7 @@ import os
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY', 'bee-key-very-secure-l0l')
     # TODO: teammate adds SQLALCHEMY_DATABASE_URI here once models/db are set up
+
+    # TODO: replace with a real Admin model + hashed passwords once one exists.
+    ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
+    ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin')
