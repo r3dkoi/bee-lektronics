@@ -37,6 +37,8 @@
 
 .delivery-form input,
 .delivery-form select {
+    width: 100%;
+    min-width: 0; /* form controls have a large default min-content width that ignores flex/grid shrinking otherwise */
     padding: 0.85rem 1rem;
     border-radius: 8px;
     border: 1px solid;
