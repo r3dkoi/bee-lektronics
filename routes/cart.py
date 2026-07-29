@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request, session
-from routes.main import PRODUCTS
+from models.database import get_connection
 
 # Blueprint for everything cart-related.
 cart = Blueprint('cart', __name__)
@@ -7,13 +7,25 @@ cart = Blueprint('cart', __name__)
 
 def get_cart_details():
     # Reads the session cart ({product_id_str: quantity}) and looks up
-    # each product's real details from the mock PRODUCTS list.
-    # TODO: once models exist, replace PRODUCTS lookup with Product.query.get(id)
+    # each product's real details from the database.
     cart_dict = session.get('cart', {})
     items = []
     subtotal = 0
+
+    if not cart_dict:
+        return items, subtotal
+
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    product_ids = [int(product_id_str) for product_id_str in cart_dict]
+    placeholders = ', '.join(['%s'] * len(product_ids))
+    cursor.execute(f"SELECT * FROM products WHERE id IN ({placeholders})", product_ids)
+    products_by_id = {row["id"]: row for row in cursor.fetchall()}
+    cursor.close()
+    conn.close()
+
     for product_id_str, quantity in cart_dict.items():
-        product = next((p for p in PRODUCTS if p["id"] == int(product_id_str)), None)
+        product = products_by_id.get(int(product_id_str))
         if product:
             line_total = product["price"] * quantity
             subtotal += line_total
