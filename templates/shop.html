@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
 {% block title %}Shop | Bee-lektronics{% endblock %}
 
@@ -31,16 +31,16 @@
             <h3>Category</h3>
     
             <label>
-                <input type="checkbox" name="Category" value="Phone"> Phones <span>{{ category_counts.get('Phone', 0) }}</span>
+                <input type="checkbox" name="Category" value="Phone" {% if selected_category == 'Phone' %}checked{% endif %}> Phones <span>{{ category_counts.get('Phone', 0) }}</span>
             </label>
             <label>
-                <input type="checkbox" name="Category" value="Computer"> Computers <span>{{ category_counts.get('Computer', 0) }}</span>
+                <input type="checkbox" name="Category" value="Computer" {% if selected_category == 'Computer' %}checked{% endif %}> Computers <span>{{ category_counts.get('Computer', 0) }}</span>
             </label>
         </aside>
 
         <div class="product-grid" id="product-grid">
             {% for product in products %}
-                <div class="product-card" data-category="{{ product.category|lower }}">
+                <div class="product-card">
                 <a href="{{ url_for('main.product_detail', product_id=product.id) }}">
                     <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
                     <h3>{{ product.name }}</h3>
@@ -53,17 +53,17 @@
             {% endfor %}
         </div>
     </div>
-    <nav class="pagination"> 
+    <nav class="pagination">
         {% if page > 1 %}
-            <a href="{{ url_for('main.shop', page=page-1) }}">← Previous</a>
+            <a href="{{ url_for('main.shop', page=page-1, category=selected_category) }}">â† Previous</a>
         {% endif %}
 
         {% for p in range(1, total_pages + 1) %}
-            <a href="{{ url_for('main.shop', page=p) }}" class="{{ 'active' if p == page else ''}}">{{ p }}</a>
+            <a href="{{ url_for('main.shop', page=p, category=selected_category) }}" class="{{ 'active' if p == page else ''}}">{{ p }}</a>
         {% endfor %}
 
         {% if page < total_pages %}
-            <a href="{{ url_for('main.shop', page=page+1) }}">Next →</a>
+            <a href="{{ url_for('main.shop', page=page+1, category=selected_category) }}">Next â†’</a>
             {% endif %}
     </nav>
 {% endblock %}
