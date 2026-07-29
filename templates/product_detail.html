@@ -21,7 +21,7 @@
 
 <section class="product-detail">
     <div class="product-image">
-        <img src="{{ product.image }}" alt="{{ product.name }}">
+        <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
     </div>
 
     <div class="product-info">
