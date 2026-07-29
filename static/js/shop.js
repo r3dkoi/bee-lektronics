@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function applyFilter() {
     const checked = Array.from(checkboxes)
         .filter(cb => cb.checked)
-        .map(cb => cb.value);
+        .map(cb => cb.value.toLowerCase());
 
     cards.forEach(card => {
         const show = checked.length === 0 || checked.includes(card.dataset.category);
