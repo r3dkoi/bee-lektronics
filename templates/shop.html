@@ -1,4 +1,4 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block title %}Shop | Bee-lektronics{% endblock %}
 
@@ -55,7 +55,7 @@
     </div>
     <nav class="pagination">
         {% if page > 1 %}
-            <a href="{{ url_for('main.shop', page=page-1, category=selected_category) }}">â† Previous</a>
+            <a href="{{ url_for('main.shop', page=page-1, category=selected_category) }}">← Previous</a>
         {% endif %}
 
         {% for p in range(1, total_pages + 1) %}
@@ -63,7 +63,7 @@
         {% endfor %}
 
         {% if page < total_pages %}
-            <a href="{{ url_for('main.shop', page=page+1, category=selected_category) }}">Next â†’</a>
+            <a href="{{ url_for('main.shop', page=page+1, category=selected_category) }}">Next →</a>
             {% endif %}
     </nav>
 {% endblock %}
