@@ -31,10 +31,10 @@
             <h3>Category</h3>
     
             <label>
-                <input type="checkbox" name="Category" value="Phone"> Phones <span>5</span>
+                <input type="checkbox" name="Category" value="Phone"> Phones <span>{{ category_counts.get('Phone', 0) }}</span>
             </label>
             <label>
-                <input type="checkbox" name="Category" value="Computer"> Computers <span>5</span>
+                <input type="checkbox" name="Category" value="Computer"> Computers <span>{{ category_counts.get('Computer', 0) }}</span>
             </label>
         </aside>
 
