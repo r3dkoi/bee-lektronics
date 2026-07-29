@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             node.querySelector('.minicart-item').dataset.productId = item.id;
 
             const image = node.querySelector('.minicart-item-image');
-            image.src = item.image;
+            image.src = item.image.startsWith('http') ? item.image : `/static/${item.image}`;
             image.alt = item.name;
 
             node.querySelector('.item-name').textContent = item.name;
