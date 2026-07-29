@@ -27,14 +27,14 @@
     </section>
 
     <div class="shop-layout">
-        <aside class="category-filter">
+        <aside class="category-filter" id="category-filter">
             <h3>Category</h3>
-            <!--REPLACE WITH FUNCTIONAL FILTER ONCE PRODUCT.CATEGORY EXISTS -->
+    
             <label>
-                <input type="checkbox" name="Category" value="phones"> Phones <span>5</span>
+                <input type="checkbox" name="Category" value="Phone"> Phones <span>5</span>
             </label>
             <label>
-                <input type="checkbox" name="Category" value="computers"> Computers <span>5</span>
+                <input type="checkbox" name="Category" value="Computer"> Computers <span>5</span>
             </label>
         </aside>
 
@@ -42,7 +42,7 @@
             {% for product in products %}
                 <div class="product-card" data-category="{{ product.category|lower }}">
                 <a href="{{ url_for('main.product_detail', product_id=product.id) }}">
-                    <img src-="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
+                    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
                     <h3>{{ product.name }}</h3>
                 </a>
                     <span class="price">${{ "%.2f"|format(product.price) }}</span>
@@ -52,9 +52,8 @@
                 </div>
             {% endfor %}
         </div>
-    
-
-    <nav class="pagination"> <!--TEMPORARY-->
+    </div>
+    <nav class="pagination"> 
         {% if page > 1 %}
             <a href="{{ url_for('main.shop', page=page-1) }}">← Previous</a>
         {% endif %}
@@ -67,4 +66,8 @@
             <a href="{{ url_for('main.shop', page=page+1) }}">Next →</a>
             {% endif %}
     </nav>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/shop.js') }}"></script>
 {% endblock %}
