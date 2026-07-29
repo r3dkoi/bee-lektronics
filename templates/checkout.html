@@ -63,7 +63,7 @@
     <aside class="checkout-summary">
         {% for item in cart_items %}
         <div class="checkout-item">
-            <img src="{{ item.image}}" alt="{{ item.name}}">
+            <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name}}">
             <div class="checkout-item-info">
                 <p class="item-name">{{ item.name }}</p>
                 <p class="item-quantity">Qty: {{ item.quantity }} </p>
