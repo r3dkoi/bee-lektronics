@@ -27,12 +27,15 @@ def get_cart_details():
     for product_id_str, quantity in cart_dict.items():
         product = products_by_id.get(int(product_id_str))
         if product:
-            line_total = product["price"] * quantity
+            # mysql-connector returns DECIMAL columns as Decimal, which
+            # jsonify() can't serialise — cast to float before it hits the response.
+            price = float(product["price"])
+            line_total = price * quantity
             subtotal += line_total
             items.append({
                 "id": product["id"],
                 "name": product["name"],
-                "price": product["price"],
+                "price": price,
                 "image": product["image"],
                 "quantity": quantity,
                 "line_total": line_total,
