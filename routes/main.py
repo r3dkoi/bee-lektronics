@@ -25,24 +25,54 @@ def api_products():
     conn.close()
     return jsonify(products)
 
+PRODUCTS_PER_PAGE = 6 #For pagination and grid showing display purposes
 
 @main.route('/shop')
 def shop():
     # Product listing page.
     page = request.args.get('page', 1, type=int)
-    # category = request.args.get('category') #e.g 'phones' or None
+    category = request.args.get('category') #e.g 'phones' or None
 
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM products")
+
+    #Counts products per category across ALL products from products database
+    #Sidebar count stays accurate even while category filter is active
+    cursor.execute("SELECT category, COUNT(*) AS count FROM products GROUP BY category")
+    category_counts = {row['category']: row['count'] for row in cursor.fetchall()}
+
+    #Build WHERE clause only when category filter is requested
+    where_clause = ""
+    params = []
+    if category:
+        where_clause = "WHERE category = %s"
+        params.append(category)
+
+    #Total count drives how many pages exist
+    cursor.execute(f"SELECT COUNT(*) AS total FROM products {where_clause}", params)
+    total_products = cursor.fetchone()['total']
+    total_pages = max(1, -(-total_products // PRODUCTS_PER_PAGE)) 
+
+    #Clamp page into valid range so ?page=999 doesn't return an empty grid silently
+    page = max(1, min(page, total_pages))
+    offset = (page - 1) * PRODUCTS_PER_PAGE
+
+    cursor.execute(
+        f"SELECT * FROM products {where_clause} LIMIT %s OFFSET %s",
+        params + [PRODUCTS_PER_PAGE, offset]
+    )
     products = cursor.fetchall()
+
     cursor.close()
     conn.close()
 
-    # TODO: once real pagination/category filtering is needed, apply it via
-    # SQL (LIMIT/OFFSET, WHERE category = %s) instead of fetching everything.
-    total_pages = 2  # Placeholder until real pagination exists
-    return render_template('shop.html', products=products, page=page, total_pages=total_pages)
+    return render_template(
+        'shop.html',
+        products=products,
+        page=page,
+        total_pages=total_pages,
+        category_counts=category_counts,
+        selected_category=category)
 
 
 @main.route('/product/<int:product_id>')
