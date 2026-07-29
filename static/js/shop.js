@@ -1,36 +1,55 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const checkboxes = document.querySelectorAll('#category-filter input[type="checkbox"]');
-    const cards = document.querySelectorAll('#product-grid .product-card');
-    const STORAGE_KEY = 'shop-category-filter';
+    const grid = document.getElementById('product-grid');
+    let pagination = document.querySelector('.pagination');
 
-// Only shows applied filtered products (e.g if Phone is checked, only Phones show) //
-function applyFilter() {
-    const checked = Array.from(checkboxes)
-        .filter(cb => cb.checked)
-        .map(cb => cb.value.toLowerCase()); //case sensitivity//
-
-    //Saves current selection so it can be restored after a page reload/next page//
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(checked));
-
-    //goes through each card to decide if it needs to be shown or hidden depending on checked category//
-    cards.forEach(card => {
-        const show = checked.length === 0 || checked.includes(card.dataset.category);
-        card.style.display = show ? '' : 'none';
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', function () {
+            if (cb.checked) {
+                // Only one category can be active server-side at a time,
+                // so checking one box unchecks the other before fetching.
+                checkboxes.forEach(other => {
+                    if (other !== cb) other.checked = false;
+                });
+            }
+            const category = cb.checked ? cb.value : null;
+            loadProducts(buildUrl(category, 1));
+        });
     });
+
+    // Pagination links point at plain shop URLs, so intercept clicks on them
+    // and route through the same fetch-based loader instead of reloading.
+    document.addEventListener('click', function (event) {
+        const link = event.target.closest('.pagination a');
+        if (!link) return;
+
+        event.preventDefault();
+        loadProducts(link.href);
+    });
+
+    function buildUrl(category, page) {
+        const url = new URL(window.location.pathname, window.location.origin);
+        if (category) url.searchParams.set('category', category);
+        if (page) url.searchParams.set('page', page);
+        return url.toString();
     }
 
-    //On page load, restore any previously saved selection //
-    const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '[]');
+    function loadProducts(url) {
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                // Parse the fetched page and pull out just the pieces that changed.
+                const parsed = new DOMParser().parseFromString(html, 'text/html');
+                const newGrid = parsed.getElementById('product-grid');
+                const newPagination = parsed.querySelector('.pagination');
 
-    //re-checks whichever boxes match the saved selection, so UI matches what was previously checked
-    checkboxes.forEach(cb => {
-        cb.checked = saved.includes(cb.value.toLowerCase());
-    });
+                if (newGrid) grid.innerHTML = newGrid.innerHTML;
+                if (newPagination) {
+                    pagination.innerHTML = newPagination.innerHTML;
+                }
 
-    //Whenever checkbox is ticked, re-run the filter
-    checkboxes.forEach(cb => cb.addEventListener('change', applyFilter));
-
-    //Apply restored filter immediately on load
-    applyFilter();
+                // Update the address bar without a full page reload.
+                window.history.pushState({}, '', url);
+            });
+    }
 });
-
