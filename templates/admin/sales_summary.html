@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Sales Summary | Bee-lektronics{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="admin-dashboard">
+    <div class="admin-dashboard-header">
+        <h1>Sales Summary</h1>
+        <a href="{{ url_for('admin.logout') }}" class="button-admin-logout">Log Out</a>
+    </div>
+
+    <div class="sales-totals">
+        <div class="sales-total-card">
+            <span class="sales-total-label">Total Sales</span>
+            <span class="sales-total-value">${{ "%.2f"|format(total_sale) }}</span>
+        </div>
+        <div class="sales-total-card">
+            <span class="sales-total-label">Total Cost</span>
+            <span class="sales-total-value">${{ "%.2f"|format(total_cost) }}</span>
+        </div>
+        <div class="sales-total-card">
+            <span class="sales-total-label">Total Profit</span>
+            <span class="sales-total-value">${{ "%.2f"|format(total_profit) }}</span>
+        </div>
+    </div>
+
+    <div class="sales-table-wrapper">
+        <table class="sales-table" id="sales-table">
+            <thead>
+                <tr>
+                    <th data-sort>Order #</th>
+                    <th data-sort>Date</th>
+                    <th data-sort>Purchaser</th>
+                    <th data-sort>Product</th>
+                    <th data-sort>Qty</th>
+                    <th data-sort>Cost Price</th>
+                    <th data-sort>Sale Price</th>
+                    <th data-sort>Profit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sale in sales %}
+                <tr>
+                    <td data-value="{{ sale.order_id }}">{{ sale.order_id }}</td>
+                    <td data-value="{{ sale.order_date.isoformat() }}">{{ sale.order_date.strftime('%d %b %Y, %H:%M') }}</td>
+                    <td data-value="{{ sale.email|lower }}">
+                        <span class="purchaser-email">{{ sale.email }}</span>
+                        <span class="purchaser-meta">{{ sale.phone }} &middot; {{ sale.suburb }}</span>
+                    </td>
+                    <td data-value="{{ sale.product_name|lower }}">{{ sale.product_name }}</td>
+                    <td data-value="{{ sale.quantity }}">{{ sale.quantity }}</td>
+                    <td data-value="{{ sale.cost_price }}">${{ "%.2f"|format(sale.cost_price) }}</td>
+                    <td data-value="{{ sale.sale_price }}">${{ "%.2f"|format(sale.sale_price) }}</td>
+                    <td data-value="{{ sale.line_profit }}" class="{{ 'profit-positive' if sale.line_profit >= 0 else 'profit-negative' }}">${{ "%.2f"|format(sale.line_profit) }}</td>
+                </tr>
+                {% else %}
+                <tr class="sales-empty-row">
+                    <td colspan="8" class="sales-empty">No completed sales yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
