@@ -45,13 +45,6 @@
     font-size: 1rem;
 }
 
-.name-row,
-.location-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
 .button-confirm-checkout {
     background-color: var(--colour-tertiary);
     color: var(--colour-quaternary);
@@ -151,11 +144,6 @@
     .checkout-delivery h1 {
         font-size: 1.6rem;
         margin-bottom: 1.5rem;
-    }
-
-    .name-row,
-    .location-row {
-        grid-template-columns: 1fr; /* stack fields that were side by side */
     }
 
     .delivery-form input,
