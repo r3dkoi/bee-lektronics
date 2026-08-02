@@ -12,13 +12,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const intervalMs = 4000;
     let timer = null;
 
-    const itemStep = () => items[0].getBoundingClientRect().width + 24; // 24 = the CSS gap value
-
     const scrollToIndex = (index) => {
-        carousel.scrollTo({ left: index * itemStep(), behavior: 'smooth' });
+        items[index].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
     };
 
-    const currentIndex = () => Math.round(carousel.scrollLeft / itemStep());
+    // Picks whichever item's left edge sits closest to the carousel's left edge —
+    // reads actual layout instead of assuming a fixed per-item scroll distance, so
+    // it stays accurate at the scroll boundaries regardless of item count/width.
+    const currentIndex = () => {
+        const carouselLeft = carousel.getBoundingClientRect().left;
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+        items.forEach((item, index) => {
+            const distance = Math.abs(item.getBoundingClientRect().left - carouselLeft);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestIndex = index;
+            }
+        });
+        return closestIndex;
+    };
 
     const advance = () => {
         const atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 1;
