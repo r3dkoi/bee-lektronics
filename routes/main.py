@@ -10,9 +10,13 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def home():
     # Homepage — hero section + featured products carousel.
-    # TODO: fetch real featured products here and pass them into the template,
-    # e.g. render_template('home.html', products=products)
-    return render_template('home.html')
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT id, name, image FROM products")
+    products = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('home.html', products=products)
 
 
 @main.route('/api/products')
