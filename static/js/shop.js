@@ -3,6 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const grid = document.getElementById('product-grid');
     let pagination = document.querySelector('.pagination');
 
+    const orderConfirmedOverlay = document.getElementById('order-confirmed-overlay');
+    const orderConfirmedClose = document.getElementById('order-confirmed-close');
+    if (orderConfirmedOverlay && orderConfirmedClose) {
+        orderConfirmedClose.addEventListener('click', () => orderConfirmedOverlay.remove());
+    }
+
     checkboxes.forEach(cb => {
         cb.addEventListener('change', function () {
             if (cb.checked) {
