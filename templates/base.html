@@ -11,13 +11,28 @@
 </head>
 <body>
     <header class="navbar">
-        <a href="{{ url_for('main.shop') }}" class="nav-link">Shop</a>
+        <div class="navbar-left">
+            <h1>BEELEKTRONICS</h1>
+
+            <nav class="navbar-links" id="navbar-links">
+                <a href="{{ url_for('main.shop') }}" class="nav-link">Shop</a>
+                <a href="{{ url_for('main.home') }}" class="nav-link">Home</a>
+            </nav>
+        </div>
 
         <a href="{{ url_for('main.home') }}" class="brand-logo">
             <img src="{{ url_for('static', filename='images/bee_logo.png') }}" alt="Bee-lektronics Logo">
         </a>
 
-        <button type="button" id="cart-toggle" class="nav-link">Cart</button>
+        <div class="navbar-right">
+            <button type="button" id="nav-toggle" class="hamburger" aria-controls="navbar-links" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span> <!-- Horizontal bars of the hamburger icon -->
+                <span></span>
+                <span></span>
+            </button>
+
+            <button type="button" id="cart-toggle" class="nav-link">Cart</button>
+        </div>
     </header>
     
     <!-- Shopping Minicart Overlay -->
