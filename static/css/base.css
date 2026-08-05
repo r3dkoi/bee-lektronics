@@ -109,6 +109,7 @@ title, h1, h2, h3, h4, h5, h6 {
     align-items: center;
     gap: 2rem;
     justify-self: start;
+    min-width: 0; /* let this 1fr grid column shrink below its content's natural width instead of forcing the whole navbar (and page) wider than the viewport */
 }
 
 .navbar-links {
@@ -126,6 +127,7 @@ title, h1, h2, h3, h4, h5, h6 {
     align-items: center;
     gap: 1.5rem;
     justify-self: end;
+    min-width: 0;
 }
 
 .navbar .nav-link {
@@ -177,6 +179,7 @@ title, h1, h2, h3, h4, h5, h6 {
     color: var(--colour-secondary);
     white-space: nowrap;
     font-weight: bold;
+    font-size: 1.5rem;
 }
 
 .hamburger {
@@ -491,6 +494,10 @@ title, h1, h2, h3, h4, h5, h6 {
         gap: 0.75rem;
     }
 
+    .navbar h1 {
+        font-size: 1.25rem;
+    }
+
     .hamburger {
         display: flex;
     }
@@ -537,6 +544,10 @@ title, h1, h2, h3, h4, h5, h6 {
 
     .navbar-links {
         gap: 0.5rem;
+    }
+
+    .navbar h1 {
+        font-size: 1.1rem;
     }
 
     .navbar .nav-link {
