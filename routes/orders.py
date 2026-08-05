@@ -1,8 +1,38 @@
+import re
+
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from models.database import get_connection
 from routes.cart import get_cart_details
 
 orders = Blueprint('orders', __name__)
+
+# Mirrors the pattern/minlength/maxlength attributes on checkout.html's inputs —
+# those are enforced by the browser only, so the same rules are re-checked here
+# since a form can always be bypassed (devtools, disabled JS, a raw POST request).
+
+# Something, then @, then something, then a literal dot, then something —
+# not a full RFC 5322 email validator, just enough to catch obvious garbage.
+EMAIL_RE = re.compile(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
+
+# Digits only, with an optional leading + for country codes (e.g. +61),
+# 8-20 characters total (matches the input's pattern="\+?[0-9]+" plus its
+# minlength/maxlength).
+PHONE_RE = re.compile(r'^\+?[0-9]{8,20}$')
+
+# Letters, spaces, apostrophes, hyphens only, 2-100 characters total
+# (matches the input's pattern="[A-Za-z\s'-]+" plus its minlength/maxlength).
+SUBURB_RE = re.compile(r"^[A-Za-z\s'-]{2,100}$")
+
+
+def validate_delivery_details(email, phone, suburb):
+    # Returns an error message for the first failing field, or None if all three pass.
+    if not email or len(email) > 255 or not EMAIL_RE.match(email):
+        return 'Please enter a valid email address'
+    if not PHONE_RE.match(phone):
+        return 'Phone must be 8-20 digits, with an optional leading + for country codes'
+    if not SUBURB_RE.match(suburb):
+        return 'Suburb must be 2-100 letters'
+    return None
 
 
 @orders.route('/checkout', methods=['GET', 'POST'])
@@ -17,6 +47,11 @@ def checkout():
         email = request.form.get('email', '').strip()
         phone = request.form.get('phone', '').strip()
         suburb = request.form.get('suburb', '').strip()
+
+        error = validate_delivery_details(email, phone, suburb)
+        if error:
+            flash(error)
+            return render_template('checkout.html', cart_items=cart_items, subtotal=subtotal)
 
         conn = get_connection()
         cursor = conn.cursor()
