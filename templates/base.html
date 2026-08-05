@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Bee-lektronics{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Bee-lektronics is your one-stop hive for phones, computers and everyday tech, with honeypot deals on the brands you trust.{% endblock %}">
+    <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}">
+    <link rel="icon" href="{{ url_for('static', filename='images/bee_logo.png') }}" type="image/png">
+
     <!-- Shared style -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/minicart.css') }}">
