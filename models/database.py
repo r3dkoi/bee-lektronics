@@ -1,19 +1,88 @@
 import os
+import sqlite3
 
-import mysql.connector
-from dotenv import load_dotenv
+# All three .sql files (products, orders, order_items) get loaded into this
+# single file on first run — see init_db() below.
+DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'instance', 'beelektronics.db')
 
-load_dotenv()
+
+class Cursor:
+    # mysql-connector's cursor(dictionary=True) returns dict rows, its plain
+    # cursor() returns tuples — routes/*.py relies on both behaviours, so this
+    # wraps sqlite3 (which always returns sqlite3.Row) to match whichever mode
+    # was asked for, and rewrites MySQL's %s placeholders to SQLite's ?.
+    def __init__(self, sqlite_cursor, dictionary):
+        self._cursor = sqlite_cursor
+        self._dictionary = dictionary
+
+    def execute(self, query, params=()):
+        self._cursor.execute(query.replace('%s', '?'), params)
+
+    def executemany(self, query, seq_of_params):
+        self._cursor.executemany(query.replace('%s', '?'), seq_of_params)
+
+    def _wrap(self, row):
+        if row is None:
+            return None
+        return dict(row) if self._dictionary else tuple(row)
+
+    def fetchone(self):
+        return self._wrap(self._cursor.fetchone())
+
+    def fetchall(self):
+        return [self._wrap(row) for row in self._cursor.fetchall()]
+
+    def close(self):
+        self._cursor.close()
+
+    @property
+    def lastrowid(self):
+        return self._cursor.lastrowid
+
+
+class Connection:
+    def __init__(self, sqlite_conn):
+        self._conn = sqlite_conn
+
+    def cursor(self, dictionary=False):
+        return Cursor(self._conn.cursor(), dictionary)
+
+    def commit(self):
+        self._conn.commit()
+
+    def close(self):
+        self._conn.close()
+
 
 def get_connection():
-    return mysql.connector.connect(
-        host=os.environ.get('DB_HOST', 'localhost'),
-        user=os.environ.get('DB_USER', 'root'),
-        password=os.environ.get('DB_PASSWORD', ''),
-        database=os.environ.get('DB_NAME', 'beelektronics_db'),
-    )
+    # instance/ is gitignored, so a fresh clone (e.g. on first deploy) won't
+    # have the .db file yet — seed it automatically instead of requiring a
+    # separate manual setup step.
+    if not os.path.exists(DB_PATH):
+        init_db()
+
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    conn.execute('PRAGMA foreign_keys = ON')
+    return Connection(conn)
+
+
+def init_db():
+    # Rebuilds the database from the .sql dumps — safe to re-run any time
+    # (each dump starts with DROP TABLE), e.g. to reset to seed data.
+    sql_dir = os.path.dirname(os.path.abspath(__file__))
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+
+    conn = sqlite3.connect(DB_PATH)
+    for filename in ('products.sql', 'orders.sql', 'order_items.sql'):
+        with open(os.path.join(sql_dir, filename), encoding='utf-8') as f:
+            conn.executescript(f.read())
+    conn.commit()
+    conn.close()
+
 
 if __name__ == '__main__':
+    init_db()
     conn = get_connection()
     cursor = conn.cursor()
 
