@@ -57,13 +57,13 @@ def checkout():
         cursor = conn.cursor()
 
         cursor.execute(
-            "INSERT INTO orders (email, phone, suburb, total_sale_price) VALUES (%s, %s, %s, %s)",
+            "INSERT INTO orders (email, phone, suburb, total_sale_price) VALUES (?, ?, ?, ?)",
             (email, phone, suburb, subtotal)
         )
         order_id = cursor.lastrowid
 
         product_ids = [item['id'] for item in cart_items]
-        placeholders = ', '.join(['%s'] * len(product_ids))
+        placeholders = ', '.join(['?'] * len(product_ids))
         cursor.execute(f"SELECT id, cost_price FROM products WHERE id IN ({placeholders})", product_ids)
         cost_price_by_id = {product_id: cost_price for product_id, cost_price in cursor.fetchall()}
 
@@ -73,7 +73,7 @@ def checkout():
         ]
         cursor.executemany(
             "INSERT INTO order_items (order_id, product_id, quantity, unit_price, unit_cost_price) "
-            "VALUES (%s, %s, %s, %s, %s)",
+            "VALUES (?, ?, ?, ?, ?)",
             order_items
         )
 
