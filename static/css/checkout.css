@@ -21,6 +21,17 @@
     margin-bottom: 2rem;
 }
 
+.delivery-form-error {
+    max-width: 480px;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background-color: color-mix(in srgb, red 15%, transparent);
+    border: 1px solid red;
+    color: var(--colour-tertiary);
+    font-size: 0.9rem;
+}
+
 .delivery-form {
     display: flex;
     flex-direction: column;
