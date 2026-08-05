@@ -10,6 +10,7 @@
 
 body {
     background-color: var(--colour-p);
+    color: var(--colour-primary);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -85,22 +86,47 @@ title, h1, h2, h3, h4, h5, h6 {
 /*                                   Nav Bar                                  */
 /* -------------------------------------------------------------------------- */
 .navbar {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
+    gap: 2rem;
     background-color: var(--colour-primary);
     padding: 1rem 2rem;
 }
 
-.navbar .nav-link {
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    justify-self: start;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.brand-logo {
     justify-self: center;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    justify-self: end;
+}
+
+.navbar .nav-link {
     text-decoration: none;
     text-transform: uppercase;
-    color: var(--colour-quaternary)
+    color: var(--colour-quaternary);
+    white-space: nowrap;
 }
 
 #cart-toggle.nav-link {
-    justify-self: center;
     background: none;
     border-top: none;
     border-left: none;
@@ -120,6 +146,42 @@ title, h1, h2, h3, h4, h5, h6 {
     width: auto;
 }
 
+.navbar h1 {
+    color: var(--colour-secondary);
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 0.25rem;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--colour-quaternary);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hamburger.is-active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.is-active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.is-active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
 /* -------------------------------------------------------------------------- */
 /*                                Hero section                                */
 /* -------------------------------------------------------------------------- */
@@ -390,6 +452,39 @@ title, h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
     .navbar {
         padding: 0.85rem 1.25rem; /* tighten navbar padding for narrower viewport */
+        gap: 0.75rem;
+    }
+
+    .navbar-left {
+        gap: 0.75rem;
+    }
+
+    .navbar-right {
+        gap: 0.75rem;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .navbar-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        max-height: 0;
+        overflow: hidden;
+        background-color: var(--colour-primary);
+        transition: max-height 0.3s ease;
+        z-index: 10;
+    }
+
+    .navbar-links.is-open {
+        max-height: 20rem;
+        padding-block: 1rem;
     }
 
     .navbar .nav-link {
@@ -409,6 +504,11 @@ title, h1, h2, h3, h4, h5, h6 {
 @media (max-width: 480px) {
     .navbar {
         padding: 0.75rem 1rem; /* further reduce navbar padding on small screens */
+        gap: 0.5rem;
+    }
+
+    .navbar-links {
+        gap: 0.5rem;
     }
 
     .navbar .nav-link {
