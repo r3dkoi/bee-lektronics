@@ -86,7 +86,9 @@ title, h1, h2, h3, h4, h5, h6 {
 /*                                   Nav Bar                                  */
 /* -------------------------------------------------------------------------- */
 .navbar {
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 100;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
@@ -136,6 +138,24 @@ title, h1, h2, h3, h4, h5, h6 {
     font-size: 1rem;
 }
 
+#cart-toggle {
+    position: relative;
+}
+
+.cart-notification {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.75rem;
+    min-width: 1.1rem;
+    height: 1.1rem;
+    padding: 0 0.3rem;
+    border-radius: 50px;
+    background-color: red;
+    color: var(--colour-quaternary);
+    font-size: 0.7rem;
+    line-height: 1.1rem;
+    text-align: center;
+}
 .navbar .nav-link:hover {
     color: var(--colour-secondary);
     text-decoration: underline;
@@ -451,6 +471,7 @@ title, h1, h2, h3, h4, h5, h6 {
 /* Tablet: ≤768px */
 @media (max-width: 768px) {
     .navbar {
+        position: relative; /* drop sticky so the navbar scrolls away normally; stays a positioned ancestor for .navbar-links' dropdown */
         padding: 0.85rem 1.25rem; /* tighten navbar padding for narrower viewport */
         gap: 0.75rem;
     }
