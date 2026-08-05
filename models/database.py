@@ -6,54 +6,6 @@ import sqlite3
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'instance', 'beelektronics.db')
 
 
-class Cursor:
-    # mysql-connector's cursor(dictionary=True) returns dict rows, its plain
-    # cursor() returns tuples — routes/*.py relies on both behaviours, so this
-    # wraps sqlite3 (which always returns sqlite3.Row) to match whichever mode
-    # was asked for, and rewrites MySQL's %s placeholders to SQLite's ?.
-    def __init__(self, sqlite_cursor, dictionary):
-        self._cursor = sqlite_cursor
-        self._dictionary = dictionary
-
-    def execute(self, query, params=()):
-        self._cursor.execute(query.replace('%s', '?'), params)
-
-    def executemany(self, query, seq_of_params):
-        self._cursor.executemany(query.replace('%s', '?'), seq_of_params)
-
-    def _wrap(self, row):
-        if row is None:
-            return None
-        return dict(row) if self._dictionary else tuple(row)
-
-    def fetchone(self):
-        return self._wrap(self._cursor.fetchone())
-
-    def fetchall(self):
-        return [self._wrap(row) for row in self._cursor.fetchall()]
-
-    def close(self):
-        self._cursor.close()
-
-    @property
-    def lastrowid(self):
-        return self._cursor.lastrowid
-
-
-class Connection:
-    def __init__(self, sqlite_conn):
-        self._conn = sqlite_conn
-
-    def cursor(self, dictionary=False):
-        return Cursor(self._conn.cursor(), dictionary)
-
-    def commit(self):
-        self._conn.commit()
-
-    def close(self):
-        self._conn.close()
-
-
 def get_connection():
     # instance/ is gitignored, so a fresh clone (e.g. on first deploy) won't
     # have the .db file yet — seed it automatically instead of requiring a
@@ -62,9 +14,11 @@ def get_connection():
         init_db()
 
     conn = sqlite3.connect(DB_PATH)
+    # row_factory makes each row behave like a dict (row['name']) as well as
+    # a tuple (for product_id, cost_price in rows), which is what routes/*.py needs.
     conn.row_factory = sqlite3.Row
     conn.execute('PRAGMA foreign_keys = ON')
-    return Connection(conn)
+    return conn
 
 
 def init_db():
@@ -88,7 +42,7 @@ if __name__ == '__main__':
 
     cursor.execute("SELECT * FROM products")
     for row in cursor.fetchall():
-        print(row)
+        print(tuple(row))
 
     cursor.close()
     conn.close()
