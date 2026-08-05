@@ -89,13 +89,16 @@
     gap: 0.25rem;
 }
 
-.item-name {
+.item-name,
+.item-quantity-label,
+.subtotal-label {
     font-weight: bold;
 }
 
 .item-quantity {
     font-size: 0.85rem;
 }
+
 
 .checkout-totals {
     display: flex;
