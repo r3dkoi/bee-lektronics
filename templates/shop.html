@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
-{% block title %}Shop | Bee-lektronics{% endblock %}
+{% block title %}{% if selected_category %}{{ selected_category }}s{% else %}Shop{% endif %} | Bee-lektronics{% endblock %}
+{% block meta_description %}{% if selected_category %}Browse our range of {{ selected_category|lower }}s at Bee-lektronics — great technology judged by how it performs.{% else %}Browse phones, computers and more at Bee-lektronics — great technology judged by how it performs, not how it looks on a shelf.{% endif %}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}">
