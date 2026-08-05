@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from functools import wraps
 
@@ -88,7 +89,11 @@ def dashboard():
             'email': row['email'],
             'phone': row['phone'],
             'suburb': row['suburb'],
-            'order_date': row['order_date'],
+            # SQLite has no native datetime type — it comes back as a plain
+            # 'YYYY-MM-DD HH:MM:SS' string, so parse it here (once, in the
+            # data layer) rather than leaning on the template to handle both
+            # a str and a datetime depending on which DB engine is in use.
+            'order_date': datetime.strptime(row['order_date'], '%Y-%m-%d %H:%M:%S'),
             'product_name': row['product_name'],
             'quantity': quantity,
             'cost_price': cost_price,
