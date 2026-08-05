@@ -17,6 +17,12 @@
     <section class="checkout-delivery">
         <h1>Delivery</h1>
 
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <p class="delivery-form-error">{{ messages[0] }}</p>
+            {% endif %}
+        {% endwith %}
+
         <form method="POST" action="{{ url_for('orders.checkout') }}" class="delivery-form">
             <label>
                 Email
@@ -25,7 +31,7 @@
 
             <label>
                 Phone
-                <input type="tel" name="phone" pattern="[0-9\s+()-]+" title="Digits, spaces, and + ( ) - only" autocomplete="tel" required minlength="8" maxlength="20">
+                <input type="tel" name="phone" pattern="\+?[0-9]+" title="Digits only, with an optional leading + for country codes" autocomplete="tel" required minlength="8" maxlength="20">
             </label>
 
             <label>
