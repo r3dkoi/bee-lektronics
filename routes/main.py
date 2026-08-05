@@ -11,7 +11,7 @@ main = Blueprint('main', __name__)
 def home():
     # Homepage — hero section + featured products carousel.
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()
     cursor.execute("SELECT id, name, image FROM products")
     products = cursor.fetchall()
     cursor.close()
@@ -22,9 +22,9 @@ def home():
 @main.route('/api/products')
 def api_products():
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM products")
-    products = cursor.fetchall()
+    products = [dict(row) for row in cursor.fetchall()]  # jsonify() can't serialise sqlite3.Row directly
     cursor.close()
     conn.close()
     return jsonify(products)
@@ -38,7 +38,7 @@ def shop():
     category = request.args.get('category') #e.g 'phones' or None
 
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()
 
     #Counts products per category across ALL products from products database
     #Sidebar count stays accurate even while category filter is active
@@ -49,7 +49,7 @@ def shop():
     where_clause = ""
     params = []
     if category:
-        where_clause = "WHERE category = %s"
+        where_clause = "WHERE category = ?"
         params.append(category)
 
     #Total count drives how many pages exist
@@ -62,7 +62,7 @@ def shop():
     offset = (page - 1) * PRODUCTS_PER_PAGE
 
     cursor.execute(
-        f"SELECT * FROM products {where_clause} LIMIT %s OFFSET %s",
+        f"SELECT * FROM products {where_clause} LIMIT ? OFFSET ?",
         params + [PRODUCTS_PER_PAGE, offset]
     )
     products = cursor.fetchall()
@@ -82,8 +82,8 @@ def shop():
 @main.route('/product/<int:product_id>')
 def product_detail(product_id):
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM products WHERE id = %s", (product_id,))
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM products WHERE id = ?", (product_id,))
     product = cursor.fetchone()
     cursor.close()
     conn.close()
@@ -108,7 +108,7 @@ def robots_txt():
 @main.route('/sitemap.xml')
 def sitemap_xml():
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()
     cursor.execute("SELECT id FROM products")
     products = cursor.fetchall()
     cursor.close()
