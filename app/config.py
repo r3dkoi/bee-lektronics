@@ -1,22 +1,15 @@
 import os
 
+from models.database import DB_PATH
+
 # Reads values from .env (loaded by app/__init__.py) with fallback defaults
 # so the app still runs even if .env is missing something.
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY', 'bee-key-very-secure-l0l')
 
-    # MySQL connection — each person points this at their own local server via
-    # .env (never commit real credentials). Defaults assume a local MySQL
-    # instance with a database named 'beelektronics_db' already created.
-    DB_USER = os.environ.get('DB_USER', 'root')
-    DB_PASSWORD = os.environ.get('DB_PASSWORD', '')
-    DB_HOST = os.environ.get('DB_HOST', 'localhost')
-    DB_PORT = os.environ.get('DB_PORT', '3306')
-    DB_NAME = os.environ.get('DB_NAME', 'beelektronics_db')
-
-    SQLALCHEMY_DATABASE_URI = (
-        f'mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
-    )
+    # SQLite — a single file at instance/beelektronics.db (see models/database.py),
+    # no separate server/host/credentials needed.
+    SQLALCHEMY_DATABASE_URI = f'sqlite:///{DB_PATH}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # TODO: replace with a real Admin model + hashed passwords once one exists.
