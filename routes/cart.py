@@ -16,9 +16,9 @@ def get_cart_details():
         return items, subtotal
 
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()
     product_ids = [int(product_id_str) for product_id_str in cart_dict]
-    placeholders = ', '.join(['%s'] * len(product_ids))
+    placeholders = ', '.join(['?'] * len(product_ids))
     cursor.execute(f"SELECT * FROM products WHERE id IN ({placeholders})", product_ids)
     products_by_id = {row["id"]: row for row in cursor.fetchall()}
     cursor.close()
@@ -27,8 +27,6 @@ def get_cart_details():
     for product_id_str, quantity in cart_dict.items():
         product = products_by_id.get(int(product_id_str))
         if product:
-            # mysql-connector returns DECIMAL columns as Decimal, which
-            # jsonify() can't serialise — cast to float before it hits the response.
             price = float(product["price"])
             line_total = price * quantity
             subtotal += line_total
