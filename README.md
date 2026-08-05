@@ -8,9 +8,7 @@ bee-lektronics/
 ├── app/            (backend)
 ├── models/         (backend)
 ├── routes/         (backend)
-├── utils/          (backend)
 ├── instance/       (backend)
-├── migrations/     (backend)
 ├── templates/      (frontend)
 ├── static/         (frontend)
 ├── run.py          (backend)
@@ -22,47 +20,40 @@ Flask serves the HTML directly (Jinja2 templates) `templates/` and `static/` are
 
 ---
 
-## Backend (Brent's section)
-
-These folders are currently empty (aside from `.gitkeep` placeholders so git tracks them) — fill them in as the database/logic gets built.
+## Backend 
 
 ### `app/`
 Core Flask app setup.
-- `__init__.py` — creates and configures the Flask app (the "app factory"); registers routes and extensions
-- `config.py` — app settings (dev/prod config values, e.g. `SECRET_KEY`, `DATABASE_URL`)
-- `extensions.py` — shared extensions like the database connection and session config
+- `__init__.py` — creates and configures the Flask app (the "app factory"); registers routes 
+- `config.py` — app settings (`SECRET_KEY`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`)
 
 ### `models/`
-Database tables/schema — one file per table group.
-- `product.py` — Product, Category tables
-- `cart.py` — CartItem table (guest/session-based cart, no user login required)
-- `order.py` — Order, OrderItem tables
-- `admin.py` — Admin login table
+NO ORM (Object-Relational Mapping) models, just raw SQL. In order to host a site for free, needed to move from MySQL to SQLite. Still the data layer.
+- `database.py` opens a SQLite connection (`instance/beelektronics.db`) with `row_factory = sqlite3.Row` so rows can be accessed like dicts; `init_db()` seeds DB from the `.sql` files below
+- `products.sql` - Contains products table; the digital stock
+- `orders.sql` - Contains orders table; customer details saved from delivery form
+- `order_items.sql` - Joined with orders.sql and contains actual product order details (quantity ordered), the product's price and the product's cost for us ordering it's stock
+
 
 ### `routes/`
 URL endpoints — the glue between `models/` and `templates/`. Each route fetches data and renders a template with it.
-- `main.py` — Home, Shop, Product Detail pages
+- `main.py` — Home, Shop, Product Detail pages, plus `robots.txt` and `sitemap.xml`
 - `cart.py` — Cart view + add/remove item endpoints
-- `orders.py` — Checkout page + order submission (redirects to Shop with an "Order Confirmed" message)
+- `orders.py` — Checkout page + server-side delivery details validation + order submission which redirecits back top /shop.
 - `admin.py` — Admin login + Sales Summary page
-
-### `utils/`
-- `decorators.py` — helper functions, e.g. an `@admin_required` check to gate admin pages
 
 ### `instance/`
 - `config.py` — local secrets/config (gitignored, never committed — each person creates their own copy locally)
 
-### `migrations/`
-Auto-generated database migration files (created by Flask-Migrate once the models are ready).
 
 ### Root-level backend files
-- `run.py` — entry point that starts the Flask server
-- `.env` — environment variables (`SECRET_KEY`, `DATABASE_URL`, etc.), gitignored
+- `run.py` — entry point that starts the Flask server (`gunicorn run:app` for Render production, `python run.py` for local dev)
+- `.env` — environment variables (`SECRET_KEY`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`, etc.), gitignored
 - `requirements.txt` — Python package dependencies
 
 ---
 
-## Frontend (Koi's section)
+## Frontend 
 
 ### `templates/`
 HTML pages (Jinja2), one per site-map page.
