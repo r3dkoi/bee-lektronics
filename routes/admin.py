@@ -49,7 +49,7 @@ def logout():
 @admin_required
 def dashboard():
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()
     cursor.execute("""
         SELECT
             o.id AS order_id,
