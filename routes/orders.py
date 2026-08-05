@@ -31,7 +31,7 @@ def validate_delivery_details(email, phone, suburb):
     if not PHONE_RE.match(phone):
         return 'Phone must be 8-20 digits, with an optional leading + for country codes. E.g: 04830559011'
     if not SUBURB_RE.match(suburb):
-        return "Suburb must be 2-50 letters only (spaces, apostrophes, and hyphens allowed). E.g: Kellyville"
+        return "Suburb must be 2-50 letters only (spaces, apostrophes, and hyphens allowed). E.g: Mill Park"
     return None
 
 
