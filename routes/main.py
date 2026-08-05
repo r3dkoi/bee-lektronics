@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, Response, url_for
 
 from models.database import get_connection
 
@@ -91,3 +91,36 @@ def product_detail(product_id):
     if product is None:
         return "Product not found", 404
     return render_template('product_detail.html', product=product)
+
+
+@main.route('/robots.txt')
+def robots_txt():
+    lines = [
+        "User-agent: *",
+        "Disallow: /checkout",
+        "Disallow: /cart",
+        "Disallow: /admin",
+        f"Sitemap: {request.url_root.rstrip('/')}{url_for('main.sitemap_xml')}",
+    ]
+    return Response("\n".join(lines), mimetype='text/plain')
+
+
+@main.route('/sitemap.xml')
+def sitemap_xml():
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT id FROM products")
+    products = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    static_urls = [url_for('main.home'), url_for('main.shop')]
+    product_urls = [url_for('main.product_detail', product_id=p['id']) for p in products]
+
+    root = request.url_root.rstrip('/')
+    entries = "".join(
+        f"<url><loc>{root}{path}</loc></url>"
+        for path in static_urls + product_urls
+    )
+    xml = f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{entries}</urlset>'
+    return Response(xml, mimetype='application/xml')
