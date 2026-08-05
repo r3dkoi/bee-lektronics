@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const emptyMessage = itemsContainer.querySelector('.minicart-empty');
     const footer = document.getElementById('minicart-footer');
     const subtotalAmount = document.getElementById('minicart-subtotal-amount');
+    const cartNotification = document.getElementById('cart-notification');
 
     /* Open / Close */
     const open = () => {
@@ -30,6 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
         itemsContainer.querySelectorAll('.minicart-item').forEach((node) => node.remove());
         emptyMessage.hidden = data.items.length > 0;
 
+        const totalQuantity = data.items.reduce((sum, item) => sum + item.quantity, 0);
+        cartNotification.textContent = totalQuantity;
+        cartNotification.hidden = totalQuantity === 0;
+        
         if (!data.items.length) {
             footer.hidden = true;
             return;
