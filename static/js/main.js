@@ -1,3 +1,27 @@
+/* Hamburger Nav */
+document.addEventListener('DOMContentLoaded', () => {
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('navbar-links');
+    if (!navToggle || !navLinks) return;
+
+    const closeMenu = () => {
+        navLinks.classList.remove('is-open');
+        navToggle.classList.remove('is-active');
+        navToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    navToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('is-open');
+        navToggle.classList.toggle('is-active', isOpen);
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // collapse the menu once a link inside it is used to navigate
+    navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+    });
+});
+
 /* Carousel Feature */
 document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.querySelector('.carousel-featured');
@@ -16,21 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
         items[index].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
     };
 
-    // Picks whichever item's left edge sits closest to the carousel's left edge —
-    // reads actual layout instead of assuming a fixed per-item scroll distance, so
-    // it stays accurate at the scroll boundaries regardless of item count/width.
+    // Maps scroll position to a dot index by progress (0 at the very start, the
+    // last index at the very end) rather than "which item leads the visible
+    // window" — with several items visible at once, that would peg the active
+    // dot to an early item even once the carousel is fully scrolled to the end.
     const currentIndex = () => {
-        const carouselLeft = carousel.getBoundingClientRect().left;
-        let closestIndex = 0;
-        let closestDistance = Infinity;
-        items.forEach((item, index) => {
-            const distance = Math.abs(item.getBoundingClientRect().left - carouselLeft);
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closestIndex = index;
-            }
-        });
-        return closestIndex;
+        const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+        if (maxScrollLeft <= 0) return 0;
+        return Math.round((carousel.scrollLeft / maxScrollLeft) * (items.length - 1));
     };
 
     const advance = () => {
