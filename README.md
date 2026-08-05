@@ -57,21 +57,21 @@ URL endpoints — the glue between `models/` and `templates/`. Each route fetche
 
 ### `templates/`
 HTML pages (Jinja2), one per site-map page.
-- `base.html` — shared layout: navbar, footer, page wrapper that every other page extends
+- `base.html` — shared layout: navbar (sticky, hamburger menu on mobile, cart item-count badge), footer, page wrapper that every other page extends
 - `home.html` — Home page
 - `shop.html` — Product listing page
 - `product_detail.html` — Single product page
-- `checkout.html` — Cart review + shipping/payment info + order submission
+- `checkout.html` — Cart review + shipping info + order submission
 - `admin/login.html` — Admin login form
 - `admin/sales_summary.html` — Admin-only sales data page
 
 ### `static/`
 CSS, JS, and images served as-is (no build step needed).
-- `css/base.css` — global/shared styles
-- `css/shop.css`, `css/cart.css`, `css/admin.css` — page-specific styles
-- `js/cart.js` — add/remove cart item behavior (talks to `routes/cart.py` endpoints)
-- `js/checkout.js` — checkout form behavior
-- `js/admin.js` — admin page behavior
+- `css/base.css` — global/shared styles (navbar, footer, hero, featured/carousel sections)
+- `css/shop.css`, `css/product_detail.css`, `css/checkout.css`, `css/minicart.css`, `css/admin.css` — page-specific styles
+- `js/main.js` — hamburger nav toggle + home page carousel
+- `js/minicart.js` — minicart overlay (open/close, render cart, add/update/remove, cart badge count)
+- `js/shop.js`, `js/product_detail.js`, `js/checkout.js`, `js/admin.js` — page-specific behavior
 - `images/` — product photos, logos, icons
 
 
