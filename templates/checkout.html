@@ -42,7 +42,7 @@
             <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name}}">
             <div class="checkout-item-info">
                 <p class="item-name">{{ item.name }}</p>
-                <p class="item-quantity"><bold>Qty:</bold>{{ item.quantity }} </p>
+                <p class="item-quantity"><span class="item-quantity-label">Qty: </span>{{ item.quantity }} </p>
             </div>
             <span class="item-price">${{ "%.2f"|format(item.line_total) }}</span>
         </div>
@@ -50,7 +50,7 @@
 
         <div class="checkout-totals">
             <div class="totals-row">
-                <span>Subtotal</span>
+                <span class="subtotal-label">Subtotal</span>
                 <span>${{ "%.2f"|format(subtotal) }}</span>
             </div>
         </div>
