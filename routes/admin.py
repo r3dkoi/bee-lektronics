@@ -11,8 +11,7 @@ admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 
 def admin_required(view):
-    # TODO: once a real User/Admin model exists, check something more robust
-    # than a plain session flag (e.g. roles/permissions on the logged-in user).
+    """Decorator that redirects to the admin login page unless the session is flagged as admin."""
     @wraps(view)
     def wrapped(*args, **kwargs):
         if not session.get('is_admin'):
@@ -24,12 +23,11 @@ def admin_required(view):
 
 @admin.route('/login', methods=['GET', 'POST'])
 def login():
+    """Show the admin login form and, on submit, check credentials and start the session."""
     if request.method == 'POST':
         username = request.form.get('username', '')
         password = request.form.get('password', '')
 
-        # TODO: once models/admin exists, replace with a real lookup + hashed
-        # password check instead of comparing against Config values.
         if username == Config.ADMIN_USERNAME and password == Config.ADMIN_PASSWORD:
             session['is_admin'] = True
             return redirect(url_for('admin.dashboard'))
@@ -41,6 +39,7 @@ def login():
 
 @admin.route('/logout')
 def logout():
+    """Clear the admin session flag and redirect to login."""
     session.pop('is_admin', None)
     return redirect(url_for('admin.login'))
 
@@ -48,6 +47,7 @@ def logout():
 @admin.route('/dashboard')
 @admin_required
 def dashboard():
+    """Build and render the sales summary: every order line with cost, sale price, and profit."""
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
