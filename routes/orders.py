@@ -25,6 +25,7 @@ SUBURB_RE = re.compile(r"^[A-Za-z\s'-]{2,50}$")
 
 
 def validate_delivery_details(email, phone, suburb):
+    """Server-side re-check of the checkout form fields; returns an error message or None."""
     # Returns an error message for the first failing field, or None if all three pass.
     if not email or len(email) > 255 or not EMAIL_RE.match(email):
         return 'Please enter a valid email address'
@@ -37,6 +38,7 @@ def validate_delivery_details(email, phone, suburb):
 
 @orders.route('/checkout', methods=['GET', 'POST'])
 def checkout():
+    """Show the checkout page, and on submit validate details and save the order."""
     cart_items, subtotal = get_cart_details()
 
     if request.method == 'POST':
