@@ -9,7 +9,7 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def home():
-    # Homepage — hero section + featured products carousel.
+    """Render the homepage: hero section + featured products carousel."""
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT id, name, image FROM products")
@@ -21,6 +21,7 @@ def home():
 
 @main.route('/api/products')
 def api_products():
+    """Return all products as JSON."""
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM products")
@@ -33,7 +34,7 @@ PRODUCTS_PER_PAGE = 6 #For pagination and grid showing display purposes
 
 @main.route('/shop')
 def shop():
-    # Product listing page.
+    """Render the paginated, optionally category-filtered product listing page."""
     page = request.args.get('page', 1, type=int)
     category = request.args.get('category') #e.g 'phones' or None
 
@@ -81,6 +82,7 @@ def shop():
 
 @main.route('/product/<int:product_id>')
 def product_detail(product_id):
+    """Render a single product's detail page, or 404 if it doesn't exist."""
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM products WHERE id = ?", (product_id,))
@@ -95,6 +97,7 @@ def product_detail(product_id):
 
 @main.route('/robots.txt')
 def robots_txt():
+    """Serve robots.txt, disallowing crawlers from private/session-specific pages."""
     lines = [
         "User-agent: *",
         "Disallow: /checkout",
@@ -107,6 +110,7 @@ def robots_txt():
 
 @main.route('/sitemap.xml')
 def sitemap_xml():
+    """Generate sitemap.xml listing static pages and every product page."""
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT id FROM products")
