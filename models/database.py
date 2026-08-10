@@ -28,7 +28,7 @@ def init_db():
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
 
     conn = sqlite3.connect(DB_PATH)
-    for filename in ('products.sql', 'orders.sql', 'order_items.sql'):
+    for filename in ('products.sql', 'orders.sql', 'order_items.sql', 'admins.sql'):
         with open(os.path.join(sql_dir, filename), encoding='utf-8') as f:
             conn.executescript(f.read())
     conn.commit()

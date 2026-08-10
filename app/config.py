@@ -5,6 +5,4 @@ import os
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY', 'bee-key-very-secure-l0l')
 
-    # TODO: replace with a real Admin model + hashed passwords once one exists.
-    ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
-    ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin')
+    # Admin credentials now live in the admins table (models/admins.sql), as a username + hashed password

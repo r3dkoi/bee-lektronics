@@ -1,8 +1,8 @@
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from functools import wraps
+from werkzeug.security import check_password_hash
 
-from app.config import Config
 from models.database import get_connection
 
 # Blueprint groups the admin-only pages together.
@@ -28,9 +28,17 @@ def login():
         username = request.form.get('username', '')
         password = request.form.get('password', '')
 
-        # TODO: once models/admin exists, replace with a real lookup + hashed
-        # password check instead of comparing against Config values.
-        if username == Config.ADMIN_USERNAME and password == Config.ADMIN_PASSWORD:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM admins WHERE username = ?", (username,))
+        admin_row = cursor.fetchone()
+        cursor.close()
+        conn.close()
+
+        stored_hash = admin_row['password_hash'] if admin_row else 'scrypt:32768:8:1$00000000000000000000000000000000$00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        password_ok = check_password_hash(stored_hash, password)
+
+        if admin_row and password_ok:
             session['is_admin'] = True
             return redirect(url_for('admin.dashboard'))
 

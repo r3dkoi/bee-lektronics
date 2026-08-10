@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS admins;
+
+CREATE TABLE admins (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username varchar(50) NOT NULL UNIQUE,
+  password_hash varchar(255) NOT NULL
+);
+
+INSERT INTO admins VALUES (1,'admin','scrypt:32768:8:1$Jw6Aip8l98WdJ0sg$dda10a324ff46cd22b82bd2f4c4f7d9adb92c88a240ff9577a3fb7709249d1add19435a2acde775ae9e34fcbdc217a804d7f60048eb8defc1533cc13b04a1111');
