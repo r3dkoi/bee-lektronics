@@ -7,6 +7,7 @@ DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 
 
 def get_connection():
+    """Open a SQLite connection to the app DB, seeding it first if it doesn't exist yet."""
     # instance/ is gitignored, so a fresh clone (e.g. on first deploy) won't
     # have the .db file yet — seed it automatically instead of requiring a
     # separate manual setup step.
@@ -22,6 +23,7 @@ def get_connection():
 
 
 def init_db():
+    """Rebuild the database from the .sql dumps (products, orders, order_items)."""
     # Rebuilds the database from the .sql dumps — safe to re-run any time
     # (each dump starts with DROP TABLE), e.g. to reset to seed data.
     sql_dir = os.path.dirname(os.path.abspath(__file__))

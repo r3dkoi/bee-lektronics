@@ -9,6 +9,7 @@ from routes.admin import admin
 
 
 def create_app():
+    """Build and configure the Flask app, registering all blueprints."""
     # Load variables from .env into the environment (SECRET_KEY, etc.)
     load_dotenv()
 

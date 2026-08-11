@@ -6,6 +6,7 @@ cart = Blueprint('cart', __name__)
 
 
 def get_cart_details():
+    """Resolve the session cart's product IDs/quantities into full item details and a subtotal."""
     # Reads the session cart ({product_id_str: quantity}) and looks up
     # each product's real details from the database.
     cart_dict = session.get('cart', {})
@@ -43,13 +44,14 @@ def get_cart_details():
 
 @cart.route('/cart/data')
 def cart_data():
-    # Fetched by main.js to populate the minicart overlay.
+    """Return the current cart's items and subtotal as JSON (fetched by main.js for the minicart)."""
     items, subtotal = get_cart_details()
     return jsonify({"items": items, "subtotal": subtotal})
 
 
 @cart.route('/cart/add/<int:product_id>', methods=['POST'])
 def add_to_cart(product_id):
+    """Add a quantity of the given product to the session cart."""
     # product_detail.html's quantity selector; shop.html's grid form sends
     # no body at all, so this defaults to adding a single unit.
     quantity = (request.get_json(silent=True) or {}).get('quantity', 1)
@@ -63,7 +65,7 @@ def add_to_cart(product_id):
 
 @cart.route('/cart/update/<int:product_id>', methods=['POST'])
 def update_quantity(product_id):
-    # Used by the minicart's +/- buttons to set an exact quantity.
+    """Set a product's exact quantity in the cart, removing it if set to zero or below."""
     quantity = request.json.get('quantity', 1)
     cart_dict = session.get('cart', {})
     key = str(product_id)
@@ -78,6 +80,7 @@ def update_quantity(product_id):
 
 @cart.route('/cart/remove/<int:product_id>', methods=['POST'])
 def remove_from_cart(product_id):
+    """Remove a product from the session cart entirely."""
     cart_dict = session.get('cart', {})
     key = str(product_id)
     if key in cart_dict:
