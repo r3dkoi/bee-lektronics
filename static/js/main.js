@@ -2,9 +2,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.getElementById('nav-toggle');
     const navLinks = document.getElementById('navbar-links');
-    if (!navToggle || !navLinks) return;
+    /* Guard clause to allow hamburger nav to fail silently and safely if HTML markup doesn't render correctly */
+    if (!navToggle || !navLinks) return; 
 
     const closeMenu = () => {
+        /* Removes the status of the hamburger nav menu being active/open */
         navLinks.classList.remove('is-open');
         navToggle.classList.remove('is-active');
         navToggle.setAttribute('aria-expanded', 'false');
