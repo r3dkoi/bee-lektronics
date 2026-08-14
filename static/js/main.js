@@ -6,19 +6,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!navToggle || !navLinks) return; 
 
     const closeMenu = () => {
-        /* Removes the status of the hamburger nav menu being active/open */
+        // Removes the status of the hamburger nav menu being active/open //
         navLinks.classList.remove('is-open');
         navToggle.classList.remove('is-active');
         navToggle.setAttribute('aria-expanded', 'false');
     };
 
     navToggle.addEventListener('click', () => {
+        // Adds is-active / is-open status to hamburger nav and triggers animation of hamburger nav //
         const isOpen = navLinks.classList.toggle('is-open');
         navToggle.classList.toggle('is-active', isOpen);
         navToggle.setAttribute('aria-expanded', String(isOpen));
     });
 
-    // collapse the menu once a link inside it is used to navigate
+    // collapses the menu once a link inside it is used to navigate
     navLinks.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', closeMenu);
     });
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.querySelector('.carousel-featured');
     if (!carousel) return;
-
+    //.closest scopes lookups to current carousel's own wrapper (future-proofs against a second carousel) //
     const wrapper = carousel.closest('.carousel-wrapper');
     const items = carousel.querySelectorAll('.carousel-item');
     const prevButton = wrapper.querySelector('.carousel-prev');
