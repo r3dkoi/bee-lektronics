@@ -2,6 +2,7 @@ from flask import Flask
 from dotenv import load_dotenv
 
 from app.config import Config
+from app.errors import register_error_handlers
 from routes.main import main
 from routes.cart import cart
 from routes.orders import orders
@@ -23,5 +24,6 @@ def create_app():
     app.register_blueprint(cart)
     app.register_blueprint(orders)
     app.register_blueprint(admin)
+    register_error_handlers(app)
 
     return app

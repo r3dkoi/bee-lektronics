@@ -91,7 +91,7 @@ def product_detail(product_id):
     conn.close()
 
     if product is None:
-        return "Product not found", 404
+        return render_template('errors/generic.html', code=404, message="This product doesn't exist."), 404
     return render_template('product_detail.html', product=product)
 
 

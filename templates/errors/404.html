@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found | Bee-lektronics{% endblock %}
+{% block meta_robots %}noindex, nofollow{% endblock %}
+
+{% block content %}
+    <section class="error-page">
+        <h1>404 — Page Not Found</h1>
+        <p>We couldn't find the page you were looking for.</p>
+        {% if suggestion %}
+            <p>Did you mean <a href="{{ suggestion }}">{{ suggestion }}</a>?</p>
+        {% endif %}
+        <a href="{{ url_for('main.home') }}" class="button-explore">Back to Home</a>
+    </section>
+{% endblock %}

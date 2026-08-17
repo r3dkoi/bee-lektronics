@@ -41,6 +41,15 @@ def get_cart_details():
             })
     return items, subtotal
 
+def product_exists(product_id):
+    """Check whether a product ID is real, so cart routes can 404 cleanly instead of silently no-opping."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT 1 FROM products WHERE id = ?", (product_id,))
+    exists = cursor.fetchone() is not None
+    cursor.close()
+    conn.close()
+    return exists
 
 @cart.route('/cart/data')
 def cart_data():
@@ -52,9 +61,15 @@ def cart_data():
 @cart.route('/cart/add/<int:product_id>', methods=['POST'])
 def add_to_cart(product_id):
     """Add a quantity of the given product to the session cart."""
+    if not product_exists(product_id):
+        return jsonify({"error": f"Product {product_id} not found"}), 404
+
     # product_detail.html's quantity selector; shop.html's grid form sends
     # no body at all, so this defaults to adding a single unit.
     quantity = (request.get_json(silent=True) or {}).get('quantity', 1)
+    if not isinstance(quantity, int) or quantity < 1:
+        return jsonify({"error": "Quantity must be a positive whole number"}), 400
+
     cart_dict = session.get('cart', {})
     key = str(product_id)
     cart_dict[key] = cart_dict.get(key, 0) + quantity
@@ -66,10 +81,19 @@ def add_to_cart(product_id):
 @cart.route('/cart/update/<int:product_id>', methods=['POST'])
 def update_quantity(product_id):
     """Set a product's exact quantity in the cart, removing it if set to zero or below."""
-    quantity = request.json.get('quantity', 1)
+    data = request.get_json(silent=True)
+    if data is None:
+        return jsonify({"error": "Request body must be valid JSON"}), 400
+
+    quantity = data.get('quantity', 1)
+    if not isinstance(quantity, int):
+        return jsonify({"error": "Quantity must be a whole number"}), 400
+
     cart_dict = session.get('cart', {})
     key = str(product_id)
     if quantity > 0:
+        if not product_exists(product_id):
+            return jsonify({"error": f"Product {product_id} not found"}), 404
         cart_dict[key] = quantity
     elif key in cart_dict:
         del cart_dict[key]

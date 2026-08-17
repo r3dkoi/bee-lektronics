@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Error {{ code }} | Bee-lektronics{% endblock %}
+{% block meta_robots %}noindex, nofollow{% endblock %}
+
+{% block content %}
+    <section class="error-page">
+        <h1>{{ code }} — Something Went Wrong</h1>
+        <p>{{ message }}</p>
+        <a href="{{ url_for('main.home') }}" class="button-explore">Back to Home</a>
+    </section>
+{% endblock %}
