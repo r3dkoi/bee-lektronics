@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 main:has(.error-page) {
     display: flex;
-}
+} /* Makes main a flex container */
 
 .error-page {
     display: flex;
