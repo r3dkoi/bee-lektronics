@@ -53,6 +53,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return Math.round((carousel.scrollLeft / maxScrollLeft) * (items.length - 1));
     };
 
+    // The index of the item actually leading the visible window — unlike
+    // currentIndex()'s progress ratio, this maps 1:1 to physical items, so
+    // stepping by ±1 from here always lands on a different item on screen.
+    // Uses nearest-offset rather than a "<=" cutoff because scroll-snap can
+    // settle a few px off an item's exact offsetLeft.
+    const leadingIndex = () => {
+        let closest = 0;
+        let smallestDiff = Infinity;
+        items.forEach((item, i) => {
+            const diff = Math.abs(item.offsetLeft - carousel.scrollLeft);
+            if (diff < smallestDiff) {
+                smallestDiff = diff;
+                closest = i;
+            }
+        });
+        return closest;
+    };
+
     const advance = () => {
         const atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 1;
         scrollToIndex(atEnd ? 0 : currentIndex() + 1); // loop back to the start at the end
@@ -91,12 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // buttons: always work, regardless of the reduced-motion / auto-advance setting above
     prevButton.addEventListener('click', () => {
         stop();
-        scrollToIndex(Math.max(0, currentIndex() - 1));
+        scrollToIndex(Math.max(0, leadingIndex() - 1));
     });
 
     nextButton.addEventListener('click', () => {
         stop();
-        scrollToIndex(Math.min(items.length - 1, currentIndex() + 1));
+        scrollToIndex(Math.min(items.length - 1, leadingIndex() + 1));
     });
 
     carousel.addEventListener('scroll', updateActiveDot);
