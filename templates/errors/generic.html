@@ -3,6 +3,10 @@
 {% block title %}Error {{ code }} | Bee-lektronics{% endblock %}
 {% block meta_robots %}noindex, nofollow{% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/errors.css') }}">
+{% endblock %}
+
 {% block content %}
     <section class="error-page">
         <h1>{{ code }} — Something Went Wrong</h1>
