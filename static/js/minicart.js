@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Rendering — takes the JSON shape returned by every /cart/* endpoint
        ({ items: [...], subtotal }) and redraws the item list from scratch.
-       The "empty" message is the same <p> that's already in base.html — it's
+       The "empty" message is the same <p> that's already in base.html; it's
        only ever shown/hidden, never removed, so there's nothing to recreate. */
     const renderCart = (data) => {
         itemsContainer.querySelectorAll('.minicart-item').forEach((node) => node.remove());
