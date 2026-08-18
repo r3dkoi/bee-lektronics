@@ -14,7 +14,10 @@ def get_connection():
     if not os.path.exists(DB_PATH):
         init_db()
 
-    conn = sqlite3.connect(DB_PATH)
+    # timeout=10 makes SQLite wait up to 10s for a lock held by another
+    # connection instead of failing immediately with "database is locked" —
+    # matters on Render, where writes are more prone to overlapping.
+    conn = sqlite3.connect(DB_PATH, timeout=10)
     # row_factory makes each row behave like a dict (row['name']) as well as
     # a tuple (for product_id, cost_price in rows), which is what routes/*.py needs.
     conn.row_factory = sqlite3.Row
