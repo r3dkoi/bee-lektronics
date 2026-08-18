@@ -1,12 +1,16 @@
 /* -------------------------------------------------------------------------- */
 /*                            Error Handling                             */
 /* -------------------------------------------------------------------------- */
+main:has(.error-page) {
+    display: flex;
+}
+
 .error-page {
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: 100%;
     gap: 1rem;
 }
